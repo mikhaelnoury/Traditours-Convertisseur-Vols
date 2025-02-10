@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Convertisseur d'itinéraire de vol</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <img src="https://d1rhhj62y2wocd.cloudfront.net/assets/images/logos/logo-traditours.svg" alt="Traditours logo" style="
+    width: 200px;
+    justify-self: center;
+    display: block;
+">
+        <h1>Convertisseur d'itinéraire de vol</h1>
+        <p style="justify-self: center;">Dernière mise à jour le 10 février 2025</p>
+        <div class="form-container">
+            <form method="POST">
+                <textarea name="flight_data" placeholder="Entrez vos informations de vol ici...">{{ flight_data }}</textarea>
+                <input type="submit" value="Convertir">
+            </form>
+        </div>        
+        
+        {% if grouped_aller or grouped_retour %}
+        <div class="result-container" style="background-color: white;padding-bottom: 20px;min-width: 55rem;justify-self: center;padding-top:20px;border-radius:10px;">
+            <div><p><strong>COMPAGNIE(S) AÉRIENNE(S) : </strong>{{ formatted_airlines|join(" et ") }}</p></div>
+
+            {% if grouped_aller %}
+            <div class="flight-section">
+                <h3 class="section-title" style="
+                background-color: #ed8b00;
+                padding: 10px;
+                color: white;
+                margin-left: 20px;
+                margin-right: 20px;
+                margin-bottom: 10px;
+                margin-top: 10px;
+            ">ALLER</h3>
+                {% for date_group in grouped_aller %}
+                <div class="date-group">
+                    {% set date = date_group[0] %}
+                    {% set flights = date_group[1] %}
+                    <div class="flight-details" style="
+                        --tw-bg-opacity: 1;
+                        background-color: rgb(239 237 233 / var(--tw-bg-opacity));
+                        margin-left: 20px;
+                        margin-right: 20px;
+                        padding: 15px;
+                    ">
+                        <p><u><strong>Date de départ</u> : {{ date }} / 
+                            <u>Lieu de départ</u> :  Aéroport de {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})</strong></p>
+                        
+                        {% for flight in flights %}
+                        <div style="margin-top: 10px;">
+                            <p>Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} / 
+                                arrivée à {{ flight.arrival_airport }} ({{ flight.arrival_airport_code }}) à {{ flight.arrival_time }} 
+                                (vol {{ flight.airline_code }} {{ flight.flight_number }}) <u>{{ flight.formatted_arrival_date }}</u></p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if grouped_retour %}
+            <div class="flight-section">
+                <h3 class="section-title" style="
+                background-color: #ed8b00;
+                padding: 10px;
+                color: white;
+                margin-left: 20px;
+                margin-right: 20px;
+                margin-bottom: 10px;
+                margin-top: 10px;
+            ">RETOUR</h3>
+                {% for date_group in grouped_retour %}
+                <div class="date-group">
+                    {% set date = date_group[0] %}
+                    {% set flights = date_group[1] %}
+                    <div class="flight-details" style="
+                        --tw-bg-opacity: 1;
+                        background-color: rgb(239 237 233 / var(--tw-bg-opacity));
+                        margin-left: 20px;
+                        margin-right: 20px;
+                        padding: 15px;
+                    ">
+                        <p><u><strong>Date de départ</u> : {{ date }} / 
+                            <u>Lieu de départ</u> :  Aéroport de {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})</strong></p>
+                        
+                        {% for flight in flights %}
+                        <div style="margin-top: 10px;">
+                            <p>Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} / 
+                                arrivée à {{ flight.arrival_airport }} ({{ flight.arrival_airport_code }}) à {{ flight.arrival_time }} 
+                                (vol {{ flight.airline_code }} {{ flight.flight_number }}) <u>{{ flight.formatted_arrival_date }}</u></p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
