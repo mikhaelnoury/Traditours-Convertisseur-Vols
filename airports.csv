@@ -276,7 +276,7 @@ AMO,Mao
 AMP,Ampanihy
 AMQ,Pattimura Airport
 AMR,Arno
-AMS,Amsterdam Airport Schiphol
+AMS,Amsterdam
 AMT,Amata
 AMU,Amanab
 AMV,Amderma
@@ -375,7 +375,7 @@ ARJ,Arso
 ARK,Arusha Airport
 ARL,Arly
 ARM,Armidale Airport
-ARN,Stockholm Arlanda Airport
+ARN,Stockholm
 ARO,Arboletas
 ARP,Aragip
 ARQ,Arauquita
@@ -421,11 +421,11 @@ ATD,Atoifi
 ATE,Antlers
 ATF,Chachoan
 ATG,Attock
-ATH,Eleftherios Venizelos International Airport
+ATH,Athènes
 ATI,Artigas
 ATJ,Antsirabe
 ATK,Atqasuk Edward Burnell Sr. Memorial Airport
-ATL,Hartsfield-Jackson Atlanta International Airport
+ATL,Atlanta
 ATM,Altamira Airport
 ATN,Namatanai
 ATO,Ohio University
@@ -532,7 +532,7 @@ AYW,Ayawasi
 AYX,Gerardo Pi©rez Pinedo
 AYY,Arugam Bay SPB
 AYZ,Zahns
-AZA,Phoenix-Mesa Gateway Airport
+AZA,Phoenix-Mesa
 AZB,Amazon Bay
 AZD,Yazd Airport
 AZG,Apatzingan
@@ -666,7 +666,7 @@ BEN,Benina International
 BEO,Belmont
 BEP,Bellary
 BEQ,Honington
-BER,Berlin Brandenburg Airport
+BER,Berlin
 BES,Brest Bretagne Airport
 BET,Bethel Airport
 BEU,Bedourie
@@ -864,7 +864,7 @@ BMH,Bomai
 BMI,Central Illinois Regional Airport
 BMJ,Baramita
 BMK,Borkum
-BML,Berlin Municipal Airport
+BML,Berlin
 BMM,Bitam
 BMN,Bamerny
 BMO,Bhamo
@@ -910,7 +910,7 @@ BOC,Bocas Del Toro
 BOD,Bordeaux Airport
 BOE,Boundji
 BOF,Bolling AFB
-BOG,El Dorado International Airport
+BOG,Bogota
 BOH,Bournemouth Airport
 BOI,Boise Air Terminal (Gowen Field)
 BOJ,Bourgas Airport
@@ -984,7 +984,7 @@ BRQ,Turany Airport
 BRR,North Bay Airport
 BRS,Bristol Airport
 BRT,Bathurst Island
-BRU,Brussels Airport
+BRU,Bruxelles
 BRV,Bremerhaven
 BRW,Wiley Post-Will Rogers Memorial Airport
 BRX,Barahona
@@ -1045,8 +1045,8 @@ BTZ,Yala Betong International Airport
 BUA,Buka
 BUB,Municipal
 BUC,Burketown
-BUD,Budapest Ferenc Liszt International Airport
-BUF,Buffalo Niagara International Airport
+BUD,Budapest
+BUF,Buffalo Niagara
 BUG,Gen V Deslandes
 BUI,Bokondini
 BUJ,Ain Eddis
@@ -1461,7 +1461,7 @@ CLX,Clorinda
 CLY,Sainte Catherine Airport
 CLZ,Calabozo
 CMA,Cunnamulla
-CMB,Bandaranaike International Airport
+CMB,Colombo
 CMC,Camocim
 CMD,Cootamundra
 CME,Ciudad Del Carmen Airport
@@ -1473,7 +1473,7 @@ CMJ,Chi Mei
 CMK,Club Makokola
 CML,Camooweal
 CMM,Carmelita
-CMN,Mohamed V International Airport
+CMN,Casablanca
 CMO,Obbia
 CMP,Campo Alegre
 CMQ,Clermont
@@ -1509,7 +1509,7 @@ CNT,Charata
 CNU,Martin Johnson
 CNV,Canavieiras
 CNW,TSTC Waco Airport
-CNX,Chiang Mai International Airport
+CNX,Chiang Mai
 CNY,Canyonlands Field
 CNZ,Cangamba
 COA,Columbia
@@ -1554,7 +1554,7 @@ CPP,Coposa Airport
 CPQ,International
 CPR,Casper/Natrona County International Airport
 CPS,St. Louis Downtown Airport
-CPT,Cape Town International Airport
+CPT,Le Cap
 CPU,Cururupu
 CPV,Joao Suassuna Airport
 CPX,Benjamin Rivera Noriega Airport
@@ -1824,21 +1824,21 @@ DEE,Mendeleyevo Airport
 DEF,Dezful Airport
 DEH,Municipal
 DEI,Denis Island
-DEL,Indira Gandhi International Airport
+DEL,Delhi
 DEM,Dembidollo
-DEN,Denver International Airport
+DEN,Denver
 DEO,Hyatt Regency Heliport
 DEP,Deparizo
 DEQ,Deqing Moganshan Airport
 DER,Derim
 DES,Desroches
-DET,Detroit City
+DET,Détroit
 DEX,Nop Goliat Airport
 DEZ,Al Jafrah
 DFA,Danfeng Airport
 DFI,Memorial
 DFP,Drumduff
-DFW,Dallas/Fort Worth International Airport
+DFW,Dallas/Fort Worth
 DGA,Dangriga
 DGB,Danger Bay
 DGC,Degahbur
@@ -1938,7 +1938,7 @@ DMU,Dimapur Airport
 DNA,Kadena AB
 DNB,Dunbar
 DND,Dundee Airport
-DNE,Dallas North Airport
+DNE,Dallas North
 DNF,Martuba
 DNG,Doongan
 DNH,Dunhuang Airport
@@ -1964,7 +1964,7 @@ DOD,Dodoma Airport
 DOE,Djoemoe
 DOF,Dora Bay
 DOG,Dongola
-DOH,Hamad International Airport
+DOH,Doha
 DOI,Doini
 DOK,Donetsk International Airport
 DOL,Saint Gatien Airport
@@ -2039,7 +2039,7 @@ DTR,Decatur Island
 DTU,Wudalianchi Dedu Airport
 DTW,Detroit Metropolitan Wayne County Airport
 DUA,Eaker
-DUB,Dublin Airport
+DUB,Dublin
 DUC,Halliburton Field
 DUD,Dunedin International Airport
 DUE,Dundo
@@ -2071,7 +2071,7 @@ DWN,Downtown Airpark
 DWO,Diyawanna Oya Seaplane Base
 DWR,Dwyer Air Base
 DWS,Walt Disney World
-DXB,Dubai Airport
+DXB,Dubaï
 DXD,Dixie
 DXE,Bruce Campbell Field
 DXJ,Xiangxi Biancheng Airport
@@ -2130,7 +2130,7 @@ EDD,Erldunda
 EDE,Municipal
 EDF,Elmendorf AFB
 EDG,Weide AAF
-EDI,Edinburgh Airport
+EDI,Édinbourg
 EDK,El Dorado
 EDL,Eldoret Airport
 EDM,Les Ajoncs
@@ -2289,7 +2289,7 @@ ERU,Erume
 ERV,Kerrville
 ERZ,Erzurum Airport
 ESA,Esa'Ala
-ESB,Esenboga International Airport
+ESB,Ankara
 ESC,Delta County Airport
 ESD,Orcas Island Airport
 ESE,Ensenada
@@ -2345,7 +2345,7 @@ EWI,Enarotali
 EWK,City-County
 EWN,Coastal Carolina Regional Airport
 EWO,Ewo
-EWR,Newark Liberty International Airport
+EWR,Newark Liberty
 EXI,SPB
 EXM,Exmouth Gulf
 EXT,Exeter International Airport
@@ -2488,7 +2488,7 @@ FMU,Florence Municipal
 FMY,Page Field
 FNA,Lungi International Airport
 FNB,Neubrandenburg
-FNC,Madeira Airport
+FNC,Madère
 FND,Funadhoo Airport
 FNE,Fane
 FNG,Fada Ngourma
@@ -3002,8 +3002,8 @@ HAI,Dr Haines
 HAJ,Hannover Airport
 HAK,Haikou Airport
 HAL,Halali
-HAM,Hamburg Airport
-HAN,Noi Bai International Airport
+HAM,Hambourg
+HAN,Hanoï
 HAO,Hamilton
 HAP,Long Island
 HAQ,Hanimaadhoo Airport
@@ -3063,7 +3063,7 @@ HEE,Thompson-Robbins
 HEH,Heho Airport
 HEI,Heide-Buesum
 HEK,Heihe Airport
-HEL,Helsinki-Vantaa Airport
+HEL,Helsinki
 HEM,Helsinki-malmi
 HEN,Hendon
 HEO,Haelogo
@@ -3128,12 +3128,12 @@ HJT,Khujirt
 HKA,Blytheville Municipal Airport
 HKB,Healy Lake
 HKD,Hakodate Airport
-HKG,Hong Kong International Airport
+HKG,Hong Kong
 HKK,Hokitika Airport
 HKN,Hoskins Airport
 HKR,Mara North Airstrip
 HKS,Hawkins Field
-HKT,Phuket International Airport
+HKT,Phuket
 HKV,Haskovo
 HKY,Hickory
 HLA,Lanseria International Airport
@@ -3174,7 +3174,7 @@ HMY,Seosan Airport
 HNA,Hanamaki Airport
 HNB,Municipal
 HNC,Hatteras
-HND,Haneda Airport
+HND,Tokyo (Haneda)
 HNE,Tahneta Pass
 HNG,Hienghene
 HNH,Hoonah Airport
@@ -3472,7 +3472,7 @@ INB,Independence
 INC,Yinchuan Hedong International Airport
 IND,Indianapolis International Airport
 INE,Chinde
-INF,Newark Liberty International
+INF,Newark Liberty
 ING,Lago Argentino
 INH,Inhambane Airport
 INI,Nis Constantine the Great Airport
@@ -3550,7 +3550,7 @@ ISO,Stallings Field
 ISP,Long Island MacArthur Airport
 ISQ,Schoolcraft County
 ISS,Wiscasset
-IST,Istanbul New Airport
+IST,Istanbul
 ISU,Sulaimaniyah International Airport
 ISW,Alexander Field
 ITA,Itacoatiara
@@ -3669,7 +3669,7 @@ JDG,Jeongseok
 JDH,Jodhpur Airport
 JDM,Miami Downtown Heliport
 JDN,Jordan
-JDO,Orlando Bezerra de Menezes Airport
+JDO,Orlando
 JDP,Heliport De Paris
 JDR,Sao Joao Del Rei
 JDT,Downtown Heliport
@@ -3759,7 +3759,7 @@ JMS,Jamestown Airport
 JMU,Jiamusi Airport
 JMY,Mammy Yoko Heliport
 JNA,Januaria
-JNB,O.R. Tambo International Airport
+JNB,Johannesburg
 JNG,Jining Airport
 JNH,North Park Inn Heliport
 JNI,Junin
@@ -3803,7 +3803,7 @@ JRG,Jharsuguda Airport
 JRH,Rowriah Airport
 JRK,Arsuk
 JRN,Juruena
-JRO,Kilimanjaro International Airport
+JRO,Kilimanjaro
 JRS,Atarot
 JRT,Juruti Airport
 JSA,Jaisalmer
@@ -4056,7 +4056,7 @@ KIS,Kisumu Airport
 KIT,Kithira Airport
 KIU,Kiunga
 KIW,Southdowns
-KIX,Kansai International Airport
+KIX,Osaka
 KIY,Kilwa Masoko Airport
 KIZ,Kikinonda
 KJA,Yemelyanovo Airport
@@ -4415,7 +4415,7 @@ LAT,La Uribe
 LAU,Lamu
 LAV,Lalomalava
 LAW,Lawton-Fort Sill Regional Airport
-LAX,Los Angeles International Airport
+LAX,Los Angeles
 LAY,Ladysmith
 LAZ,Bom Jesus Da Lapa
 LBA,Leeds Bradford International Airport
@@ -4545,7 +4545,7 @@ LGR,Cochrane
 LGS,Malargue
 LGT,Las Gaviotas
 LGU,Cache
-LGW,London Gatwick Airport
+LGW,Londres (Gatwick)
 LGX,Lugh Ganane
 LGY,Lagunillas
 LGZ,Shannan Longzi Airport
@@ -4557,7 +4557,7 @@ LHI,Lereh
 LHK,Guanghua
 LHN,Lishan
 LHP,Lehu
-LHR,London Heathrow Airport
+LHR,Londres (Heathrow)
 LHS,Las Heras
 LHU,Lianshulu
 LHV,W T Piper Memorial
@@ -4579,7 +4579,7 @@ LIO,Limon International Airport
 LIP,Lins
 LIQ,Lisala
 LIR,Liberia Airport
-LIS,Lisbon Portela Airport
+LIS,Lisbonne
 LIT,Bill and Hillary Clinton National Airport
 LIV,Livengood
 LIW,Loikaw Airport
@@ -4883,7 +4883,7 @@ LZY,Nyingchi Mainling Airport
 MAA,Chennai Airport
 MAB,Maraba Airport
 MAC,Smart
-MAD,Adolfo Suarez Madrid-Barajas Airport
+MAD,Madrid
 MAE,Madera
 MAF,Midland International Airport
 MAG,Madang Airport
@@ -4946,7 +4946,7 @@ MCK,Mc Cook Airport
 MCL,Mt Mckinley
 MCM,Fontvieille Heliport
 MCN,Lewis B Wilson
-MCO,Orlando International Airport
+MCO,Orlando
 MCP,Macapa International Airport
 MCQ,Miskolc
 MCR,Melchor De Menco
@@ -4980,7 +4980,7 @@ MDS,Middle Caicos
 MDT,Harrisburg International Airport
 MDU,Mendi Airport
 MDV,Medouneu
-MDW,Chicago Midway International Airport
+MDW,Chicago Midway
 MDX,Mercedes
 MDY,Sand Island Field
 MDZ,El Plumerillo International Airport
@@ -5579,7 +5579,7 @@ NBH,Nambucca Heads
 NBJ,Dr. Antonio Agostinho Neto International Airport
 NBL,San Blas
 NBN,Annobi³n
-NBO,Jomo Kenyatta International Airport
+NBO,Nairobi
 NBS,Changbaishan Airport
 NBU,NAS
 NBV,Cana Brava
@@ -5800,7 +5800,7 @@ NRM,Nara
 NRN,Weeze Airport
 NRR,Roosevelt NAS
 NRS,Imperial Beach Nolf (Ream Field)
-NRT,Narita International Airport
+NRT,Tokyo (Narita)
 NRY,Newry
 NSB,North SPB
 NSE,Whiting Field NAS
@@ -6098,7 +6098,7 @@ OPB,Open Bay
 OPF,Opa-locka Executive Airport
 OPI,Oenpelli
 OPL,St Landry Parish
-OPO,Porto Airport
+OPO,Porto
 OPP,Salini³polis Airport
 OPS,Sinop Airport
 OPU,Balimo
@@ -6139,7 +6139,7 @@ OSH,Wittman Field
 OSI,Osijek Airport
 OSJ,Ol Seki Airport
 OSK,Oskarshamn
-OSL,Oslo Airport Gardermoen
+OSL,Oslo
 OSM,Mosul
 OSN,Osan AB
 OSO,Osborne Mine
@@ -6395,7 +6395,7 @@ PHS,Phitsanulok Airport
 PHT,Henry County
 PHU,Phu Vinh
 PHW,Phalaborwa Airport
-PHX,Phoenix Sky Harbor International Airport
+PHX,Phoenix Sky Harbor
 PHY,Phetchabun
 PHZ,Phi Phi Island
 PIA,Peoria International Airport
@@ -6590,7 +6590,7 @@ PRC,Prescott Airport
 PRD,Pardoo
 PRE,Pore
 PRF,Port Johnson
-PRG,Vaclav Havel Airport Prague
+PRG,Prague
 PRH,Phrae Airport
 PRI,Praslin Island Airport
 PRJ,Capri
@@ -6670,7 +6670,7 @@ PUF,The Pau-Pyrenees International Airport
 PUG,Port Augusta
 PUH,Pochutla
 PUI,Pureni
-PUJ,Punta Cana International Airport
+PUJ,Punta Cana
 PUK,Pukarua
 PUL,Poulsbo
 PUN,Punia
@@ -6707,7 +6707,7 @@ PWA,Wiley Post
 PWD,Sherwood
 PWE,Pevek Airport
 PWI,Beles
-PWK,Chicago Executive Airport
+PWK,Chicago Executive
 PWL,Purwokerto
 PWM,Portland International Jetport
 PWN,Pitts Town
@@ -6808,7 +6808,7 @@ RAG,Raglan
 RAH,Rafha Airport
 RAI,Nelson Mandela International Airport
 RAJ,Civil Airport
-RAK,Menara Airport
+RAK,Marrakech
 RAL,Riverside Municipalcipal
 RAM,Ramingining
 RAN,La Spreta
@@ -6822,7 +6822,7 @@ RAV,Cravo Norte
 RAW,Arawa
 RAX,Oram
 RAZ,Rawala Kot
-RBA,Sale Airport
+RBA,Rabat
 RBB,Borba
 RBC,Robinvale
 RBD,Redbird
@@ -6902,7 +6902,7 @@ REX,Gen Lucio Blanco International Airport
 REY,Reyes
 REZ,Resende
 RFA,Rafai
-RFD,Chicago Rockford International Airport
+RFD,Chicago Rockford
 RFG,Rooke Field
 RFK,Rollang Field
 RFN,Raufarhofn
@@ -6973,7 +6973,7 @@ RKR,Robert S Kerr
 RKS,Rock Springs-Sweetwater County Airport
 RKT,Ras Al Khaimah International Airport
 RKU,Kairuku
-RKV,Reykjavik International Airport
+RKV,Reykjavik
 RKW,Rockwood Municipal Airport
 RKY,Rokeby
 RKZ,Peace
@@ -7166,11 +7166,11 @@ SAE,Sangir
 SAF,Santa Fe
 SAG,Shirdi
 SAH,Sana'a International Airport
-SAI,Siem Reap-Angkor International Airport
+SAI,Siem Reap-Angkor
 SAK,Saudarkrokur
-SAL,El Salvador International Airport
+SAL,El Salvador
 SAM,Salamo
-SAN,San Diego International Airport
+SAN,San Diego
 SAP,Ramon Villeda Morales International Airport
 SAQ,San Andros
 SAR,Sparta Community
@@ -7258,7 +7258,7 @@ SDV,Dov Hoz Airport
 SDW,Sindhudurg Airport
 SDX,Sedona
 SDY,Richland Municipal Airport
-SEA,Seattle-Tacoma International Airport
+SEA,Seattle
 SEB,Sebha
 SED,Min'hat Hashnayim
 SEE,Gillespie Field
@@ -7281,7 +7281,7 @@ SEW,Siwa
 SEY,Selibaby
 SEZ,Seychelles International Airport
 SFA,Sfax El Maou Airport
-SFB,Orlando Sanford International Airport
+SFB,Orlando
 SFC,St Francois
 SFD,Las Flecheras
 SFE,San Fernando
@@ -7293,7 +7293,7 @@ SFK,Soure
 SFL,Sao Filipe
 SFM,Sanford
 SFN,Santa Fe Airport
-SFO,San Francisco International Airport
+SFO,San Francisco
 SFP,Surfers Paradise
 SFQ,Sanliurfa
 SFR,San Fernando
@@ -7318,7 +7318,7 @@ SGJ,Sagarai
 SGK,Sangapi
 SGL,Sangley Point NAS
 SGM,San Ignacio
-SGN,Tan Son Nhat International Airport
+SGN,Hô Chi Minh-Ville
 SGO,St George
 SGP,Shay Gap
 SGQ,Sanggata
@@ -7359,7 +7359,7 @@ SHY,Shinyanga
 SHZ,Seshutes
 SIA,Xi'an Xiguan Airport
 SIB,Sibiti
-SIC,San Jose Island Airport
+SIC,San Jose Island
 SID,Amilcar Cabral International Airport
 SIE,Sines
 SIF,Simara
@@ -7370,7 +7370,7 @@ SIJ,Siglufjordur
 SIK,Memorial
 SIL,Sila
 SIM,Simbai
-SIN,Changi International Airport
+SIN,Singapour
 SIO,Smithton
 SIP,Simferopol International Airport
 SIQ,Dabo
@@ -7385,8 +7385,8 @@ SIY,Siskiyou County
 SIZ,Sissano
 SJA,San Juan
 SJB,San Joaquin
-SJC,Norman Y. Mineta San Jose International Airport
-SJD,Los Cabos International Airport
+SJC,Norman Y. Mineta San Jose
+SJD,Los Cabos
 SJE,San Jose Del Gua
 SJF,St John Island
 SJG,San Pedro Jagua
@@ -7466,7 +7466,7 @@ SMB,Cerro Sombrero
 SMC,Santa Maria
 SMD,Smith Field
 SME,Pulaski County
-SMF,Sacramento International Airport
+SMF,Sacramento
 SMG,Santa Maria
 SMH,Sapmanga
 SMI,Samos Airport
@@ -7706,7 +7706,7 @@ SVM,St Pauls
 SVN,Hunter AAF
 SVO,Sheremetyevo International Airport
 SVP,Kuito (Silva Porto)
-SVQ,Seville Airport
+SVQ,Séville
 SVS,Stevens Village
 SVT,Savuti
 SVU,Savusavu Airport
@@ -7785,7 +7785,7 @@ SYT,Charolais Bourgogne S.
 SYU,Warraber Island
 SYV,Sylvester
 SYW,Sehwen Sharif
-SYX,Sanya Phoenix International Airport
+SYX,Sanya Phoenix
 SYY,Stornoway Airport
 SYZ,Shiraz International Airport
 SZA,Soyo Airport
@@ -8154,7 +8154,7 @@ TOW,Toledo
 TOX,Tobolsk
 TOY,Toyama Airport
 TOZ,Touba
-TPA,Tampa International Airport
+TPA,Tampa
 TPC,Tarapoa
 TPE,Taiwan Taoyuan International Airport
 TPF,Peter O'Knight
@@ -8614,7 +8614,7 @@ VER,Veracruz International Airport
 VEV,Barakoma
 VEX,Tioga Municipal Airport
 VEY,Vestmannaeyjar
-VFA,Victoria Falls Airport
+VFA,Victoria Falls
 VGA,Vijayawada Airport
 VGD,Vologda Airport
 VGG,Vangrieng
@@ -8628,10 +8628,10 @@ VHN,Culberson County
 VHV,Verhnevilyuisk
 VHY,Charmeil
 VHZ,Vahitahi
-VIA,Vienna
+VIA,Vienne
 VIB,Villa Constitucion
 VIC,Trissino
-VIE,Vienna International Airport
+VIE,Vienne
 VIF,Vieste
 VIG,El Vigia
 VIH,Rolla National
@@ -8798,7 +8798,7 @@ WCR,Chandalar
 WDA,Wadi Ain
 WDB,Deep Bay
 WDG,Enid Woodring Mun.
-WDH,Hosea Kutako International Airport
+WDH,Windhoek
 WDI,Wondai
 WDN,Waldron Island
 WDR,Winder
@@ -9223,7 +9223,7 @@ YDX,Doc Creek
 YEB,Bar River
 YEC,Yecheon
 YED,Namao Field
-YEG,Edmonton International Airport
+YEG,Edmonton
 YEH,Yinchuan Helanshan Airport
 YEI,Yenisehir Airport
 YEK,Arviat
@@ -9284,7 +9284,7 @@ YHG,Charlottetown
 YHH,Harbor SPB
 YHI,Holman
 YHK,Gjoa Haven Airport
-YHM,Hamilton Airport
+YHM,Hamilton
 YHN,Hornepayne
 YHO,Hopedale
 YHP,Poplar Hill
@@ -9419,7 +9419,7 @@ YOO,Oshawa
 YOP,Rainbow Lake
 YOS,Billy Bishop Regional
 YOT,Yotvata
-YOW,Ottawa/Macdonald-Cartier International Airport
+YOW,Ottawa
 YOY,Valcartier
 YPA,Glass Field
 YPB,Port Alberni
@@ -9596,7 +9596,7 @@ YXY,Whitehorse Airport
 YXZ,Wawa Airport
 YYA,Big Bay Yacht Club
 YYB,Jack Garland Airport
-YYC,Calgary International Airport
+YYC,Calgary
 YYD,Smithers Airport
 YYE,Northern Rockies Regional Airport
 YYF,Penticton Airport
@@ -9729,7 +9729,7 @@ ZQN,Queenstown Airport
 ZQS,Queen Charlotte Island
 ZQW,Zweibruecken Airport
 ZQZ,Zhangjiakou Ningyuan Airport
-ZRH,Zurich Airport
+ZRH,Zurich
 ZRI,Serui
 ZRJ,Round Lake Airport
 ZRM,Sarmi
@@ -9759,7 +9759,7 @@ ZWA,Andapa
 ZWL,Wollaston Lake
 ZWR,Kota Kinabalu Port
 ZXT,Heydar Aliyev
-ZYD,Lisbon TP
+ZYD,Lisbonne
 ZYF,Faro TP
 ZYI,Zunyi Xinzhou Airport
 ZYL,Civil Airport
