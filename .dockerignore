@@ -1,0 +1,9 @@
+.DS_Store
+.env
+.git
+.gitignore
+.idea/
+__pycache__/
+*.pyc
+*.pyo
+venv/
