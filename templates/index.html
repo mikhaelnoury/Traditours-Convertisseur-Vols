@@ -7,106 +7,502 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <title>Convertisseur d'itinéraire de vol</title>
+    <link rel="icon" type="image/x-icon" href="https://www.traditours.com/favicon/favicon-32x32.png">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        @media print {
+            .result-container {
+                max-width: 100%;
+                overflow: hidden;
+            }
+            
+            .flight-details p {
+                white-space: normal !important;
+                word-break: break-word;
+            }
+            
+            .section-title {
+                font-size: 1.2em !important;
+                margin: 15px 0 !important;
+            }
+        }
+        
+        .result-container * {
+            font-family: 'Lato', Arial, sans-serif !important;
+            line-height: 1.4;
+        }
+
+        .pdf-button {
+            background-color: #ed8b00;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .pdf-button:hover {
+            background-color: #d97b00;
+        }
+
+        .form-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        
+        .form-container form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .form-container textarea {
+            width: auto;
+            height: 120px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .form-container input[type="submit"] {
+            background-color: #ed8b00;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .logo {
+            width: 200px;
+            justify-self: center;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="https://d1rhhj62y2wocd.cloudfront.net/assets/images/logos/logo-traditours.svg" alt="Traditours logo" style="
-    width: 200px;
-    justify-self: center;
-    display: block;
-">
-        <h1>Convertisseur d'itinéraire de vol</h1>
-        <p style="justify-self: center;">Dernière mise à jour le 10 février 2025</p>
-        <div class="form-container">
-            <form method="POST">
-                <textarea name="flight_data" placeholder="Entrez vos informations de vol ici...">{{ flight_data }}</textarea>
-                <input type="submit" value="Convertir">
-            </form>
-        </div>        
+        <img src="https://d1rhhj62y2wocd.cloudfront.net/assets/images/logos/logo-traditours.svg" alt="Traditours logo" class="logo">
+        <h1 class='no-print'>Convertisseur d'itinéraire de vol</h1>
+        <p class='no-print' style="text-align: center;">Dernière mise à jour de l'outil le 2 mai 2025</p>
         
-        {% if grouped_aller or grouped_retour %}
-        <div class="result-container" style="background-color: white;padding-bottom: 20px;min-width: 55rem;justify-self: center;padding-top:20px;border-radius:10px;">
-            <div><p><strong>COMPAGNIE(S) AÉRIENNE(S) : </strong>{{ formatted_airlines|join(" et ") }}</p></div>
+        <h2 class="no-print">Étape 1 - Informations de vols</h2>
 
-            {% if grouped_aller %}
-            <div class="flight-section">
-                <h3 class="section-title" style="
-                background-color: #ed8b00;
-                padding: 10px;
-                color: white;
-                margin-left: 20px;
-                margin-right: 20px;
-                margin-bottom: 10px;
-                margin-top: 10px;
-            ">ALLER</h3>
-                {% for date_group in grouped_aller %}
-                <div class="date-group">
-                    {% set date = date_group[0] %}
-                    {% set flights = date_group[1] %}
-                    <div class="flight-details" style="
-                        --tw-bg-opacity: 1;
-                        background-color: rgb(239 237 233 / var(--tw-bg-opacity));
-                        margin-left: 20px;
-                        margin-right: 20px;
-                        padding: 15px;
-                    ">
-                        <p><u><strong>Date de départ</u> : {{ date }} / 
-                            <u>Lieu de départ</u> :  Aéroport de {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})</strong></p>
-                        
-                        {% for flight in flights %}
-                        <div style="margin-top: 10px;">
-                            <p>Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} / 
-                                arrivée à {{ flight.arrival_airport }} ({{ flight.arrival_airport_code }}) à {{ flight.arrival_time }} 
-                                (vol {{ flight.airline_code }} {{ flight.flight_number }}) <u>{{ flight.formatted_arrival_date }}</u></p>
-                        </div>
-                        {% endfor %}
+        <div class="no-print">
+            <div class="form-container">
+                
+                <form method="POST" style="margin-left: 0px;margin-right: 0px;">
+                    <h3>Itinéraire Amadeus</h3>
+                    <textarea name="flight_data2" placeholder="Informations de vols Amadeus (exemple : 2  AC 311 K 07MAR 5 YULYVR HK1  1815 2047  07MAR  E  AC/3LGXCO).">{{ request.form.flight_data2 if request.form.flight_data2 else flight_data2 }}</textarea>
+                    
+                    
+                    <div><input type="submit" name="action" value="Filtrer" style="width: 100%; margin-right: 5px; background-color: #454036;"></div>
+
+                    <h3>Itinéraire simplifié</h3>
+                    <textarea name="flight_data1" placeholder="Informations de vols nettoyés (exemple : QF 003 13OCT 3 SYDAKL 1010 1505  13OCT).">{{ flight_data1 }}</textarea></textarea>
+                 
+                    <!-- Dropdowns intégrés -->
+                    <div>
+                        <p class="no-print" for="vols" style="font-weight: bold;">Y a-t-il des vols à l’intérieur du programme (même billet, autre billet, équipe locale) ?</p>
+                        <select name="vols" id="vols" style="height: 30px; width: -webkit-fill-available; border-radius: 5px; border-color: #454036; font-family: 'Lato';">
+                            <option value="non-vols" {% if request.form.get('vols') == 'non-vols' %}selected{% endif %}>Non</option>
+                            <option value="oui-vols" {% if request.form.get('vols') == 'oui-vols' %}selected{% endif %}>Oui</option>
+                        </select>
                     </div>
+                    <div>
+                        <p class="no-print" for="hebergement" style="font-weight: bold;">Est-ce qu’un hébergement en transit est inclus par le transporteur?</p>
+                        <select name="hebergement" id="hebergement" style="height: 30px; width: -webkit-fill-available; border-radius: 5px; border-color: #454036; font-family: 'Lato';">
+                            <option value="non-hergement" {% if request.form.get('hebergement') == 'non-hergement' %}selected{% endif %}>Non</option>
+                            <option value="oui-aller" {% if request.form.get('hebergement') == 'oui-aller' %}selected{% endif %}>Oui, aller seulement</option>
+                            <option value="oui-retour" {% if request.form.get('hebergement') == 'oui-retour' %}selected{% endif %}>Oui, retour seulement</option>
+                            <option value="oui-aller-retour" {% if request.form.get('hebergement') == 'oui-aller-retour' %}selected{% endif %}>Oui, aller-retour</option>
+                        </select>
+                    </div>
+                    
+                    <div id="notes-staff" style="text-align: justify; display: flex; flex-flow: column;">
+                        <p class="no-print" style="display: flex;font-weight: bold;">Notes sur l'itinéraire</p>
+                    <textarea name="notes-itineraire" placeholder="Indiquer toute note devant accompagner l'itinéraire international, par exemple *Vol AC 1636 opéré par Air Canada Rouge, *Vol OU385 inclut une escale technique à Dubrovnik, *Le vol d'Istanbul à Nevsehir est réservé par notre équipe à destination, etc." style="width: auto;height: 50px;">{{ notes_itineraire }}</textarea>
+                    </div>
+
+                    <div id="notes-staff" style="text-align: justify; display: flex; flex-flow: column;">
+                        <p class="no-print" style="display: flex;font-weight: bold;">Notes sur l'assignation des sièges</p>
+                    <textarea name="notes-siege" placeholder="Indiquer les notes sur l'assignation des sièges" style="width: auto;height: 50px;text-align: justify;">{{ notes_siege }}</textarea>
+                    </div>
+
+                    <div><input type="submit" name="action" value="Convertir" style="width: 100%;"></div>
+                </form>
+            </div>
+        </div>
+
+
+        {% if result1 %}
+        <h2 class="no-print">Étape 2 - Affichage des résultats</h2>
+        <!-- Résultats du premier formulaire -->
+        <div class="result-container" style="background-color: #efede9; padding: 10px; width: 277mm; margin: 0 auto; box-sizing: border-box; border: 2px solid #45403647;">
+            <!-- Section Titre -->
+            <div>
+                <div style="display: flex;"><h1 style="color: #454036;font-weight: 500;text-align: left;width: 50%;float: left;">ITINÉRAIRE AÉRIEN DU GROUPE</h1>   
+                <div style="display: flex;gap: 10px;align-items: center;width: 50%;!i;!;justify-content: right;">
+                <p style="color: #454036; font-weight: 300;">Dernière mise à jour le :</p>
+                <input type="date" style="background: none; border-bottom: 1px solid lightgrey; border-top: none; border-left: none; border-right: none;"></div>
+                </div>    
+            <div style="display: flex;"><div style="display: flex; display: flex; gap: 10px; align-items: center; width: 50%; justify-content: left;"><p style="color: #454036;font-weight: 300;width: 160px;">Nom du voyage :</p>
+                <input type="text" style="background: none;border-bottom: 1px solid lightgrey;border-top: none;border-left: none;border-right: none;width: -webkit-fill-available;"></div>   
+                <div style="display: flex;gap: 10px;align-items: center;width: 50%;!i;!;justify-content: right;">
+                <p style="color: #454036; font-weight: 300;">Code de groupe</p>
+                <input type="text" style="background: none; border-bottom: 1px solid lightgrey; border-top: none; border-left: none; border-right: none;"></div>
                 </div>
-                {% endfor %}
+            </div>
+
+            <!-- Résultats Vols -->
+            <div style="margin-top: 20px;">
+                <p style="margin-bottom: 10px;"><strong>Compagnie(s) aérienne(s) : </strong>{{ result1.airlines_str }}</p>
+                
+                {% if result1.grouped_aller %}
+                <div class="flight-section">
+                    <h4 style="background-color: #ed8b00; color: white; padding: 10px; text-align: left; margin:0px;">Aller</h4>
+                    {% for date_group in result1.grouped_aller %}
+                    <div class="date-group">
+                        {% set date = date_group[0] %}
+                        {% set flights = date_group[1] %}
+                        <div class="flight-details" style="margin: 10px 0;">
+                            <p><strong><u>Date de départ</u> : {{ date }} / <u>Lieu de départ</u> : Aéroport de {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})</strong></p>
+                            {% for flight in flights %}
+                            <div style="margin-top: 5px;">
+                                <p>
+                                    {% if loop.index > 1 %}
+                                        {% set prev_flight = flights[loop.index-2] %}
+                                        {% if flight.formatted_departure_date != prev_flight.formatted_departure_date %}
+                                            Départ le <u>{{ flight.formatted_departure_date }}</u> de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
+                                        {% else %}
+                                            Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
+                                        {% endif %}
+                                    {% else %}
+                                        Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
+                                    {% endif %}
+                                    Arrivée à {{ flight.arrival_airport }} ({{ flight.arrival_airport_code }}) à {{ flight.arrival_time }} 
+                                    (vol {{ flight.airline_code }} {{ flight.flight_number }}) le <u>{{ flight.formatted_arrival_date }}</u>
+                                </p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if result1.grouped_retour %}
+                <div class="flight-section">
+                    <h4 style="background-color: #ed8b00; color: white; padding: 10px; text-align: left; margin:0px;">Retour</h4>
+                    {% for date_group in result1.grouped_retour %}
+                    <div class="date-group">
+                        {% set date = date_group[0] %}
+                        {% set flights = date_group[1] %}
+                        <div class="flight-details" style="margin: 10px 0;">
+                            <p><strong><u>Date de départ</u> : {{ date }} / <u>Lieu de départ</u> : Aéroport de {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})</strong></p>
+                            {% for flight in flights %}
+                            <div style="margin-top: 5px;">
+                                <p>
+                                    {% if loop.index > 1 %}
+                                        {% set prev_flight = flights[loop.index-2] %}
+                                        {% if flight.formatted_departure_date != prev_flight.formatted_departure_date %}
+                                            Départ le <u>{{ flight.formatted_departure_date }}</u> de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
+                                        {% else %}
+                                            Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
+                                        {% endif %}
+                                    {% else %}
+                                        Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
+                                    {% endif %}
+                                    Arrivée à {{ flight.arrival_airport }} ({{ flight.arrival_airport_code }}) à {{ flight.arrival_time }} 
+                                    (vol {{ flight.airline_code }} {{ flight.flight_number }}) le <u>{{ flight.formatted_arrival_date }}</u>
+                                </p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Section À NOTER -->
+            {% if notes_itineraire %}
+            <div style="text-align: justify; margin: 10px 0; font-size: 14px; color: #ed8b00; font-family: lato;">
+                {{ notes_itineraire|replace('\n', '<br>')|safe }}
             </div>
             {% endif %}
 
-            {% if grouped_retour %}
-            <div class="flight-section">
-                <h3 class="section-title" style="
-                background-color: #ed8b00;
-                padding: 10px;
-                color: white;
-                margin-left: 20px;
-                margin-right: 20px;
-                margin-bottom: 10px;
-                margin-top: 10px;
-            ">RETOUR</h3>
-                {% for date_group in grouped_retour %}
-                <div class="date-group">
-                    {% set date = date_group[0] %}
-                    {% set flights = date_group[1] %}
-                    <div class="flight-details" style="
-                        --tw-bg-opacity: 1;
-                        background-color: rgb(239 237 233 / var(--tw-bg-opacity));
-                        margin-left: 20px;
-                        margin-right: 20px;
-                        padding: 15px;
-                    ">
-                        <p><u><strong>Date de départ</u> : {{ date }} / 
-                            <u>Lieu de départ</u> :  Aéroport de {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})</strong></p>
-                        
-                        {% for flight in flights %}
-                        <div style="margin-top: 10px;">
-                            <p>Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} / 
-                                arrivée à {{ flight.arrival_airport }} ({{ flight.arrival_airport_code }}) à {{ flight.arrival_time }} 
-                                (vol {{ flight.airline_code }} {{ flight.flight_number }}) <u>{{ flight.formatted_arrival_date }}</u></p>
-                        </div>
-                        {% endfor %}
-                    </div>
+            
+            <div style="margin-top: 20px;">
+                <h4 style="background-color: #454036; color: white; padding: 10px; margin: 0;">À NOTER</h4>
+                
+                <!-- Début affichage conditionnel -->
+                
+
+                
+                <div style="background-color: #ffffff;padding-top: 10px; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; text-align: justify; display: none;" id="vols-section">
+                    <p style="padding: 0px; padding-left: 10px; padding-right: 10px; font-weight: bold; color: #ed8b00;">Votre itinéraire inclut également un ou plusieurs autres vols, veuillez vous référer au programme.</p>
                 </div>
-                {% endfor %}
+                <div id="hebergement-section">
+                    <div id="non-hebergement-text" style="background-color: #ffffff; padding-top: 0px; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; text-align: justify; display: none;">
+                        <p style="padding: 0px;">Text 1</p>
+                    </div>
+                    <div id="oui-aller-text" style="background-color: #ffffff; padding-top: 10px; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; text-align: justify; display: none;">
+                        <p style="padding: 0px; padding-left: 10px; padding-right: 10px; font-weight: bold; color: #ed8b00;">À ce jour et selon l'horaire de vol, une pause en hôtel à l'aller est offerte par la compagnie aérienne, avec transferts.</p>
+                    </div>
+                    <div id="oui-retour-text" style="background-color: #ffffff; padding-top: 10px; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; text-align: justify; display: none;">
+                        <p style="padding: 0px; padding-left: 10px; padding-right: 10px; font-weight: bold; color: #ed8b00;">À ce jour et selon l'horaire de vol, une pause en hôtel au retour est offerte par la compagnie aérienne, avec transferts.</p>
+                    </div>
+                    <div id="oui-aller-retour-text" style="background-color: #ffffff; padding-top: 10px; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; text-align: justify; display: none;">
+                        <p style="padding: 0px; padding-left: 10px; padding-right: 10px; font-weight: bold; color: #ed8b00;">À ce jour et selon l'horaire de vol, une pause en hôtel à l'aller et au retour est offerte par la compagnie aérienne, avec transferts.</p>
+                    </div>
+                  
+                </div>
+                <!-- Fin affichage conditionnel -->
+                
+                <div style="background-color: #ffffff; padding: 10px; text-align: justify">
+                    <p style="padding: 0px; padding-left: 10px; padding-right: 10px; font-size:12px;">L'itinéraire aérien est sujet à changement par les compagnies aériennes ainsi que par Voyages Traditours. Notre équipe effectue des recherches continues pour réserver les vols les plus adéquats pour chaque programme, en considérant les contraintes imposées aux réservations de groupe. L'horaire de vol à jour vous sera communiqué dans la lettre d'information, environ quatre (4) semaines avant la date de votre départ. Pour les destinations nécessitant un visa, cette lettre vous sera envoyée au moment opportun.</i></p>
+                        <p style="padding: 0px; padding-left: 10px; padding-right: 10px; font-size:12px;">
+                            Important : il est de votre responsabilité d’aviser Voyages Traditours de toute prestation supplémentaire (vol, transfert, hébergement, etc.) que vous auriez réservée, car celles-ci peuvent avoir un impact sur le bon déroulement de votre voyage.</i></p>
+                            {% if notes_siege %}
+                            <div style="background-color: #ffffff; padding: 10px; text-align: justify; font-size: 12px;">
+                                {{ notes_siege|replace('\n', '<br>')|safe }}
+                            </div>
+                            {% endif %}
+                </div>
             </div>
-            {% endif %}
+        </div>
+
+        <h2 class="no-print">Étape 3 - Génération en version PDF</h2>
+        <div class="no-print" style="text-align: center; padding-bottom: 20px;">
+            <button onclick="prepareAndPrint()" class="pdf-button">Générer un PDF</button>
+        </div>
+
+
+        {% endif %}
+
+        {% if result2 %}
+        <h2 class="no-print">Étape 2 - Affichage des résultats</h2>
+        <!-- Résultats du deuxième formulaire -->
+        <div class="result-container" style="background-color: #efede9; padding: 10px; width: 277mm; margin: 0 auto; box-sizing: border-box; border: 2px solid #45403647;">
+            <!-- Section Titre -->
+            <div>
+                <div style="display: flex;"><h1 style="color: #454036;font-weight: 500;text-align: left;width: 50%;float: left;">ITINÉRAIRE AÉRIEN DU GROUPE</h1>   
+                <div style="display: flex;gap: 10px;align-items: center;width: 50%;!i;!;justify-content: right;">
+                <p style="color: #454036; font-weight: 300;">Dernière mise à jour le :</p>
+                <input type="date" style="background: none; border-bottom: 1px solid lightgrey; border-top: none; border-left: none; border-right: none;"></div>
+                </div>    
+            <div style="display: flex;"><div style="display: flex; display: flex; gap: 10px; align-items: center; width: 50%; justify-content: left;"><p style="color: #454036;font-weight: 300;width: 160px;">Nom du voyage :</p>
+                <input type="text" style="background: none;border-bottom: 1px solid lightgrey;border-top: none;border-left: none;border-right: none;width: -webkit-fill-available;"></div>   
+                <div style="display: flex;gap: 10px;align-items: center;width: 50%;!i;!;justify-content: right;">
+                <p style="color: #454036; font-weight: 300;">Code de groupe</p>
+                <input type="text" style="background: none; border-bottom: 1px solid lightgrey; border-top: none; border-left: none; border-right: none;"></div>
+                </div>
+            </div>
+
+            <!-- Résultats Vols -->
+            <div style="margin-top: 20px;">
+                <p style="margin-bottom: 10px;"><strong>Compagnie(s) aérienne(s) : </strong>{{ result2.airlines_str }}</p>
+                
+                {% if result2.grouped_aller %}
+                <div class="flight-section">
+                    <h4 style="background-color: #ed8b00; color: white; padding: 10px; text-align: left; margin:0px;">Aller</h4>
+                    {% for date_group in result2.grouped_aller %}
+                    <div class="date-group">
+                        {% set date = date_group[0] %}
+                        {% set flights = date_group[1] %}
+                        <div class="flight-details" style="margin: 10px 0;">
+                            <p><strong><u>Date de départ</u> : {{ date }} / <u>Lieu de départ</u> : Aéroport de {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})</strong></p>
+                            {% for flight in flights %}
+                            <div style="margin-top: 5px;">
+                                <p>
+                                    {% if loop.index > 1 %}
+                                        {% set prev_flight = flights[loop.index-2] %}
+                                        {% if flight.formatted_departure_date != prev_flight.formatted_departure_date %}
+                                            Départ le <u>{{ flight.formatted_departure_date }}</u> de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
+                                        {% else %}
+                                            Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
+                                        {% endif %}
+                                    {% else %}
+                                        Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
+                                    {% endif %}
+                                    Arrivée à {{ flight.arrival_airport }} ({{ flight.arrival_airport_code }}) à {{ flight.arrival_time }} 
+                                    (vol {{ flight.airline_code }} {{ flight.flight_number }}) le <u>{{ flight.formatted_arrival_date }}</u>
+                                </p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if result2.grouped_retour %}
+                <div class="flight-section">
+                    <h4 style="background-color: #ed8b00; color: white; padding: 10px; text-align: left; margin:0px;">Retour</h4>
+                    {% for date_group in result2.grouped_retour %}
+                    <div class="date-group">
+                        {% set date = date_group[0] %}
+                        {% set flights = date_group[1] %}
+                        <div class="flight-details" style="margin: 10px 0;">
+                            <p><strong><u>Date de départ</u> : {{ date }} / <u>Lieu de départ</u> : Aéroport de {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})</strong></p>
+                            {% for flight in flights %}
+                            <div style="margin-top: 5px;">
+                                <p>
+                                    {% if loop.index > 1 %}
+                                        {% set prev_flight = flights[loop.index-2] %}
+                                        {% if flight.formatted_departure_date != prev_flight.formatted_departure_date %}
+                                            Départ le <u>{{ flight.formatted_departure_date }}</u> de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
+                                        {% else %}
+                                            Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
+                                        {% endif %}
+                                    {% else %}
+                                        Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
+                                    {% endif %}
+                                    Arrivée à {{ flight.arrival_airport }} ({{ flight.arrival_airport_code }}) à {{ flight.arrival_time }} 
+                                    (vol {{ flight.airline_code }} {{ flight.flight_number }}) le <u>{{ flight.formatted_arrival_date }}</u>
+                                </p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+
+        <!-- Section À NOTER -->
+        {% if notes_itineraire %}
+        <div style="text-align: justify; margin: 10px 0; font-size: 12px;">
+            {{ notes_itineraire|replace('\n', '<br>')|safe }}
         </div>
         {% endif %}
+        
+        <div style="margin-top: 20px;">
+            <h4 style="background-color: #454036; color: white; padding: 10px; margin: 0;">À NOTER</h4>
+            
+                <!-- Début affichage conditionnel -->
+
+                <div style="background-color: #ffffff;padding-top: 10px; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; text-align: justify; display: none;" id="vols-section">
+                    <p style="padding: 0px; padding-left: 10px; padding-right: 10px; font-weight: bold; color: #ed8b00;">Votre itinéraire inclut également un ou plusieurs autres vols, veuillez vous référer au programme.</p>
+                </div>
+
+                <div id="hebergement-section">
+                    <div id="non-hebergement-text" style="background-color: #ffffff; padding: 10px; text-align: justify; display: none;">
+                        <p style="padding: 0px; padding-left: 10px; padding-right: 10px; font-size: 14;">Text 1</p>
+                    </div>
+                    <div id="oui-aller-text" style="background-color: #ffffff; padding-top: 10px; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; text-align: justify; display: none;">
+                        <p style="padding: 0px; padding-left: 10px; padding-right: 10px; font-weight: bold; color: #ed8b00;">À ce jour et selon l'horaire de vol, une pause en hôtel à l'aller est offerte par la compagnie aérienne, avec transferts.</p>
+                    </div>
+                    <div id="oui-retour-text" style="background-color: #ffffff; padding-top: 10px; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; text-align: justify; display: none;">
+                        <p style="padding: 0px; padding-left: 10px; padding-right: 10px; font-weight: bold; color: #ed8b00;">À ce jour et selon l'horaire de vol, une pause en hôtel au retour est offerte par la compagnie aérienne, avec transferts.</p>
+                    </div>
+                    <div id="oui-aller-retour-text" style="background-color: #ffffff; padding-top: 10px; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; text-align: justify; display: none;">
+                        <p style="padding: 0px; padding-left: 10px; padding-right: 10px; font-weight: bold; color: #ed8b00;">À ce jour et selon l'horaire de vol, une pause en hôtel à l'aller et au retour est offerte par la compagnie aérienne, avec transferts.</p>
+                    </div>
+                </div>
+                <!-- Fin affichage conditionnel -->
+            
+            <div style="background-color: #ffffff; padding: 10px; text-align: justify">
+                <p style="padding: 0px; padding-left: 10px; padding-right: 10px; font-size:12px;">L'itinéraire aérien est sujet à changement par les compagnies aériennes ainsi que par Voyages Traditours. Notre équipe effectue des recherches continues pour réserver les vols les plus adéquats pour chaque programme, en considérant les contraintes imposées aux réservations de groupe. L'horaire de vol à jour vous sera communiqué dans la lettre d'information, environ quatre (4) semaines avant la date de votre départ. Pour les destinations nécessitant un visa, cette lettre vous sera envoyée au moment opportun.</p>
+                    <p style="padding: 0px; font-size:12px;">
+                        Important : il est de votre responsabilité d’aviser Voyages Traditours de toute prestation supplémentaire (vol, transfert, hébergement, etc.) que vous auriez réservée, car celles-ci peuvent avoir un impact sur le bon déroulement de votre voyage.</p>
+                        {% if notes_siege %}
+                        <div style="background-color: #ffffff; padding: 10px; text-align: justify; font-size: 12px;">
+                            {{ notes_siege|replace('\n', '<br>')|safe }}
+                        </div>
+                        {% endif %}
+            </div>
+        </div>    
+
+
+        </div>
+
+        <h2 class="no-print">Étape 3 - Génération en version PDF</h2>
+    <div class="no-print" style="text-align: center; padding-bottom: 20px;">
+        <button onclick="prepareAndPrint()" class="pdf-button">Générer un PDF</button>
     </div>
+
+        {% endif %}
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Gestion des vols
+        const volsSelect = document.getElementById('vols');
+        const volsSection = document.getElementById('vols-section');
+        
+        function toggleVolsSection() {
+            volsSection.style.display = volsSelect.value === 'oui-vols' ? 'block' : 'none';
+        }
+        
+        if(volsSelect && volsSection) {
+            toggleVolsSection();
+            volsSelect.addEventListener('change', toggleVolsSection);
+        }
+
+        // Gestion de l'hébergement
+        const hebergementSelect = document.getElementById('hebergement');
+        
+        function toggleHebergement() {
+            const value = hebergementSelect.value;
+            document.getElementById('non-hebergement-text').style.display = 'none';
+            document.getElementById('oui-aller-text').style.display = 'none';
+            document.getElementById('oui-retour-text').style.display = 'none';
+            document.getElementById('oui-aller-retour-text').style.display = 'none';
+            
+            if(value === 'non-hebergement') {
+                document.getElementById('non-hebergement-text').style.display = 'block';
+            }
+            else if(value === 'oui-aller') {
+                document.getElementById('oui-aller-text').style.display = 'block';
+            }
+            else if(value === 'oui-retour') {
+                document.getElementById('oui-retour-text').style.display = 'block';
+            }
+            else if(value === 'oui-aller-retour') {
+                document.getElementById('oui-aller-retour-text').style.display = 'block';
+            }
+        }
+
+        if(hebergementSelect) {
+            toggleHebergement();
+            hebergementSelect.addEventListener('change', toggleHebergement);
+        }
+    });
+
+    function prepareAndPrint() {
+        // Masquer les notes-staff vides
+        const notesStaffDivs = document.querySelectorAll('#notes-staff');
+        notesStaffDivs.forEach(div => {
+            const textarea = div.querySelector('textarea[name="notes-staff"]');
+            if (textarea && textarea.value.trim() === '') {
+                div.style.display = 'none';
+            }
+        });
+    
+        // Lancer l'impression
+        window.print();
+    
+        // Rétablir l'affichage après l'impression
+        setTimeout(() => {
+            notesStaffDivs.forEach(div => {
+                div.style.display = 'flex'; // Rétablir le style original
+            });
+        }, 100);
+    }
+</script>
 </body>
 </html>
