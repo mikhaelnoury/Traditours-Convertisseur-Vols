@@ -9,6 +9,34 @@
     <title>Convertisseur d'itinéraire de vol</title>
     <link rel="icon" type="image/x-icon" href="https://www.traditours.com/favicon/favicon-32x32.png">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fonction pour formater la date en DD-MM-YYYY
+        function getTodayDate() {
+            const today = new Date();
+            const dd = String(today.getDate()).padStart(2, '0');
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const yyyy = today.getFullYear();
+            return `${dd}-${mm}-${yyyy}`; // Format DD-MM-YYYY
+        }
+
+        // Appliquer la date du jour à tous les champs avec la classe "today-date"
+        const dateFields = document.querySelectorAll('.today-date');
+        dateFields.forEach(field => {
+            field.value = getTodayDate();
+        });
+
+        // Initialiser Flatpickr sur les champs de date
+        flatpickr(".today-date", {
+            dateFormat: "d-m-Y",  // Format DD-MM-YYYY
+            allowInput: true       // Permettre la saisie manuelle
+        });
+    });
+    </script>
 
     <style>
         @media print {
@@ -92,10 +120,32 @@
 </head>
 <body>
 
+    
+    
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true" style='display:none;'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="errorModalLabel">Erreur de traitement</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="errorMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
     <div class="container">
         <img src="https://d1rhhj62y2wocd.cloudfront.net/assets/images/logos/logo-traditours.svg" alt="Traditours logo" class="logo">
         <h1 class='no-print'>Convertisseur d'itinéraire de vol</h1>
-        <p class='no-print' style="text-align: center;">Dernière mise à jour de l'outil le 2 mai 2025</p>
+        <p class='no-print' style="text-align: center;">Dernière mise à jour de l'outil le 28 mai 2025</p>
         
         <h2 class="no-print">Étape 1 - Informations de vols</h2>
 
@@ -110,7 +160,7 @@
                     <div><input type="submit" name="action" value="Filtrer" style="width: 100%; margin-right: 5px; background-color: #454036;"></div>
 
                     <h3>Itinéraire simplifié</h3>
-                    <textarea name="flight_data1" placeholder="Informations de vols nettoyés (exemple : QF 003 13OCT 3 SYDAKL 1010 1505  13OCT).">{{ flight_data1 }}</textarea></textarea>
+                    <textarea name="flight_data1" placeholder="Informations de vols simplifiées (exemple : QF 003 13OCT 3 SYDAKL 1010 1505  13OCT).">{{ flight_data1 }}</textarea></textarea>
                  
                     <!-- Dropdowns intégrés -->
                     <div>
@@ -147,21 +197,20 @@
 
 
         {% if result1 %}
-        <h2 class="no-print">Étape 2 - Affichage des résultats</h2>
+        <h2 class="no-print" id="etape2">Étape 2 - Affichage des résultats</h2>
         <!-- Résultats du premier formulaire -->
         <div class="result-container" style="background-color: #efede9; padding: 10px; width: 277mm; margin: 0 auto; box-sizing: border-box; border: 2px solid #45403647;">
             <!-- Section Titre -->
             <div>
-                <div style="display: flex;"><h1 style="color: #454036;font-weight: 500;text-align: left;width: 50%;float: left;">ITINÉRAIRE AÉRIEN DU GROUPE</h1>   
-                <div style="display: flex;gap: 10px;align-items: center;width: 50%;!i;!;justify-content: right;">
+                <div style="display: flex;"><h1 style="color: #454036;font-weight: 500;text-align: left;width: 48%;float: left;margin-top: 0px;margin-bottom: 10px;">ITINÉRAIRE AÉRIEN DU GROUPE</h1>   
+                <div style="display: flex;gap: 10px;align-items: center;width: 10%;!i;!;justify-content: right;"><input type="text" style="background: none;border-bottom: 1px solid lightgrey;border-top: none;border-left: none;border-right: none;margin-left: 10px;font-size: 18px;color: #454036;margin-top: -9px;width: 89px;"></div>
+            <div style="display: flex;gap: 10px;align-items: center;width: 42%;!i;!;justify-content: right;">
                 <p style="color: #454036; font-weight: 300;">Dernière mise à jour le :</p>
-                <input type="date" style="background: none; border-bottom: 1px solid lightgrey; border-top: none; border-left: none; border-right: none;"></div>
+                <input type="text" class="today-date" style="background: none;border-bottom: 1px solid lightgrey;border-top: none;border-left: none;border-right: none;width: 80px;"></div>
                 </div>    
-            <div style="display: flex;"><div style="display: flex; display: flex; gap: 10px; align-items: center; width: 50%; justify-content: left;"><p style="color: #454036;font-weight: 300;width: 160px;">Nom du voyage :</p>
+            <div style="display: flex;"><div style="display: flex;display: flex;gap: 10px;align-items: center;width: 100%;justify-content: left;"><p style="color: #454036;font-weight: 300;width: 54px;">Voyage : </p>
                 <input type="text" style="background: none;border-bottom: 1px solid lightgrey;border-top: none;border-left: none;border-right: none;width: -webkit-fill-available;"></div>   
-                <div style="display: flex;gap: 10px;align-items: center;width: 50%;!i;!;justify-content: right;">
-                <p style="color: #454036; font-weight: 300;">Code de groupe</p>
-                <input type="text" style="background: none; border-bottom: 1px solid lightgrey; border-top: none; border-left: none; border-right: none;"></div>
+                
                 </div>
             </div>
 
@@ -171,7 +220,7 @@
                 
                 {% if result1.grouped_aller %}
                 <div class="flight-section">
-                    <h4 style="background-color: #ed8b00; color: white; padding: 10px; text-align: left; margin:0px;">Aller</h4>
+                    <h4 style="background-color: #ed8b00; color: white; padding: 10px; text-align: left; margin:0px;">{% if result1.grouped_retour %}Aller{% else %}Horaire{% endif %}</h4>
                     {% for date_group in result1.grouped_aller %}
                     <div class="date-group">
                         {% set date = date_group[0] %}
@@ -273,7 +322,7 @@
                 
                 <div style="background-color: #ffffff; padding: 10px; text-align: justify">
                     <p style="padding: 0px; padding-left: 10px; padding-right: 10px; font-size:12px;">L'itinéraire aérien est sujet à changement par les compagnies aériennes ainsi que par Voyages Traditours. Notre équipe effectue des recherches continues pour réserver les vols les plus adéquats pour chaque programme, en considérant les contraintes imposées aux réservations de groupe. L'horaire de vol à jour vous sera communiqué dans la lettre d'information, environ quatre (4) semaines avant la date de votre départ. Pour les destinations nécessitant un visa, cette lettre vous sera envoyée au moment opportun.</i></p>
-                        <p style="padding: 0px; padding-left: 10px; padding-right: 10px; font-size:12px;">
+                    <p style="padding: 0px; padding-left: 10px; padding-top: 10px; padding-right: 10px; font-size:12px;">
                             Important : il est de votre responsabilité d’aviser Voyages Traditours de toute prestation supplémentaire (vol, transfert, hébergement, etc.) que vous auriez réservée, car celles-ci peuvent avoir un impact sur le bon déroulement de votre voyage.</i></p>
                             {% if notes_siege %}
                             <div style="background-color: #ffffff; padding: 10px; text-align: justify; font-size: 12px;">
@@ -293,7 +342,7 @@
         {% endif %}
 
         {% if result2 %}
-        <h2 class="no-print">Étape 2 - Affichage des résultats</h2>
+        <h2 class="no-print" id="etape2">Étape 2 - Affichage des résultats</h2>
         <!-- Résultats du deuxième formulaire -->
         <div class="result-container" style="background-color: #efede9; padding: 10px; width: 277mm; margin: 0 auto; box-sizing: border-box; border: 2px solid #45403647;">
             <!-- Section Titre -->
@@ -301,7 +350,7 @@
                 <div style="display: flex;"><h1 style="color: #454036;font-weight: 500;text-align: left;width: 50%;float: left;">ITINÉRAIRE AÉRIEN DU GROUPE</h1>   
                 <div style="display: flex;gap: 10px;align-items: center;width: 50%;!i;!;justify-content: right;">
                 <p style="color: #454036; font-weight: 300;">Dernière mise à jour le :</p>
-                <input type="date" style="background: none; border-bottom: 1px solid lightgrey; border-top: none; border-left: none; border-right: none;"></div>
+                <input type="text" class="today-date" style="background: none;border-bottom: 1px solid lightgrey;border-top: none;border-left: none;border-right: none;width: 80px;"></div>
                 </div>    
             <div style="display: flex;"><div style="display: flex; display: flex; gap: 10px; align-items: center; width: 50%; justify-content: left;"><p style="color: #454036;font-weight: 300;width: 160px;">Nom du voyage :</p>
                 <input type="text" style="background: none;border-bottom: 1px solid lightgrey;border-top: none;border-left: none;border-right: none;width: -webkit-fill-available;"></div>   
@@ -317,7 +366,7 @@
                 
                 {% if result2.grouped_aller %}
                 <div class="flight-section">
-                    <h4 style="background-color: #ed8b00; color: white; padding: 10px; text-align: left; margin:0px;">Aller</h4>
+                <h4 style="background-color: #ed8b00; color: white; padding: 10px; text-align: left; margin:0px;">{% if result2.grouped_retour %}Aller{% else %}Horaire{% endif %}</h4>
                     {% for date_group in result2.grouped_aller %}
                     <div class="date-group">
                         {% set date = date_group[0] %}
@@ -416,8 +465,8 @@
                 <!-- Fin affichage conditionnel -->
             
             <div style="background-color: #ffffff; padding: 10px; text-align: justify">
-                <p style="padding: 0px; padding-left: 10px; padding-right: 10px; font-size:12px;">L'itinéraire aérien est sujet à changement par les compagnies aériennes ainsi que par Voyages Traditours. Notre équipe effectue des recherches continues pour réserver les vols les plus adéquats pour chaque programme, en considérant les contraintes imposées aux réservations de groupe. L'horaire de vol à jour vous sera communiqué dans la lettre d'information, environ quatre (4) semaines avant la date de votre départ. Pour les destinations nécessitant un visa, cette lettre vous sera envoyée au moment opportun.</p>
-                    <p style="padding: 0px; font-size:12px;">
+                <p style="padding: 0px; padding-left: 10px; padding-right: 10px; font-size:12px;">L'itinéraire aérien est sujet à changement par les compagnies aériennes ainsi que par Voyages Traditours. Notre équipe effectue des recherches continues pour réserver les vols les plus adéquats pour chaque programme, en considérant les contraintes imposées aux réservations de groupe. L'horaire de vol à jour vous sera communiqué dans la lettre d'information, environ quatre (4) semaines avant la date de votre départ. Pour les destinations nécessitant un visa, cette lettre vous sera envoyée au moment opportun.</p>    
+                <p style="padding: 0px; padding-top: 10px; font-size:12px;">
                         Important : il est de votre responsabilité d’aviser Voyages Traditours de toute prestation supplémentaire (vol, transfert, hébergement, etc.) que vous auriez réservée, car celles-ci peuvent avoir un impact sur le bon déroulement de votre voyage.</p>
                         {% if notes_siege %}
                         <div style="background-color: #ffffff; padding: 10px; text-align: justify; font-size: 12px;">
@@ -437,7 +486,32 @@
 
         {% endif %}
     </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script>
+    // Gestion du défilement après soumission
+    document.querySelector('form').addEventListener('submit', function(e) {
+    const submitter = e.submitter;
+    if (submitter && submitter.value === 'Convertir') {
+        this.action = '#etape2'; // Ajoute l'ancre à l'URL
+    }
+    });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+    // Afficher la modal d'erreur si un message existe
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const errorMessage = "{{ error_message }}";
+        if (errorMessage && errorMessage !== 'None') {
+            document.getElementById('errorMessage').textContent = errorMessage;
+            const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            errorModal.show();
+        }
+    });
+    </script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Gestion des vols

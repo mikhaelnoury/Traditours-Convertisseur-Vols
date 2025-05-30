@@ -33,7 +33,7 @@ ABF,Abaiang
 ABG,Abingdon
 ABH,Alpha
 ABI,Abilene Regional 
-ABJ,Felix Houphouet Boigny 
+ABJ,Abidjan
 ABK,Kabri Dar
 ABL,Ambler 
 ABM,Northern Peninsula 
@@ -76,7 +76,7 @@ ACZ,Zabol
 ADA,Adana 
 ADB,Izmir 
 ADC,Andakombe
-ADD,Addis Ababa Bole 
+ADD,Addis Ababa
 ADE,International
 ADF,Adiyaman 
 ADG,Lenawee County
@@ -105,7 +105,7 @@ AED,Aleneva
 AEE,Adareil 
 AEG,Aek Godang
 AEH,Abi©chi©
-AEI,Algeciras
+AEI,Alger
 AEK,Aseki
 AEL,Albert Lea
 AEM,Amgu
@@ -529,7 +529,7 @@ AYS,Ware County
 AYT,Antalya 
 AYU,Aiyura
 AYW,Ayawasi
-AYX,Gerardo Pi©rez Pinedo
+AYX,Atalaya
 AYY,Arugam Bay SPB
 AYZ,Zahns
 AZA,Phoenix-Mesa Gateway 
@@ -673,7 +673,7 @@ BEU,Bedourie
 BEV,Beer Sheba
 BEW,Beira 
 BEX,Benson RAF Station
-BEY,Beirut-Rafic Hariri 
+BEY,Beyrouth
 BEZ,Beru
 BFA,Bahia Negra
 BFB,Blue Fox Bay
@@ -752,7 +752,7 @@ BHX,Birmingham
 BHY,Beihai Fucheng 
 BIA,Bastia 
 BIB,Baidoa
-BIC,Ai©rodrome de Belle iŽle
+BIC,Belle Ile
 BID,Block Island
 BIE,Beatrice
 BIF,Biggs AAF
@@ -766,7 +766,7 @@ BIM,Bimini
 BIN,Bamiyan
 BIO,Bilbao 
 BIP,Bulimba
-BIQ,Biarritz - Anglet - Bayonne 
+BIQ,Biarritz
 BIR,Biratnagar 
 BIS,Bismarck 
 BIT,Baitadi
@@ -843,7 +843,7 @@ BLM,Monmouth Executive
 BLN,Benalla
 BLO,Blonduos
 BLP,Bellavista
-BLQ,Guglielmo Marconi 
+BLQ,Bologne
 BLR,Kempegowda 
 BLS,Bollon
 BLT,Blackwater
@@ -1174,7 +1174,7 @@ BZM,Bemolanga
 BZN,Bozeman Yellowstone 
 BZO,Bolzano
 BZP,Bizant
-BZR,Beziers Vias 
+BZR,Beziers
 BZS,Buzzards Pt S
 BZT,Eagle Air Park
 BZU,Buta
@@ -1188,7 +1188,7 @@ CAC,Cascavel
 CAD,Cadillac
 CAE,Columbia Metropolitan 
 CAF,Carauari
-CAG,Cagliari Elmas 
+CAG,Cagliari
 CAH,Kamau
 CAI,Le Caire 
 CAJ,Canaima
@@ -1254,7 +1254,7 @@ CCQ,Cachoeira
 CCR,Buchanan Field
 CCS,Simon Bolivar 
 CCT,Colonia Catriel
-CCU,Netaji Subhas Chandra Bose 
+CCU,Calcutta
 CCV,Craig Cove
 CCW,Cowell
 CCX,Caceres
@@ -1284,7 +1284,7 @@ CDW,Caldwell Wright
 CDY,Cagayan De Sulu
 CDZ,Cadiz
 CEA,Cessna Aircraft Field
-CEB,Mactan-Cebu 
+CEB,Cebu
 CEC,Del Norte County Regional 
 CED,Ceduna 
 CEE,Cherepovets 
@@ -1338,7 +1338,7 @@ CGG,Casiguran
 CGH,Sao Paulo/Congonhas 
 CGI,Cape Girardeau 
 CGJ,Chingola
-CGK,Jakarka 
+CGK,Jakarta
 CGM,Mambajao
 CGN,Cologne Bonn 
 CGO,Zhengzhou Xinzheng 
@@ -1359,7 +1359,7 @@ CHG,Chaoyang
 CHH,Chachapoyas
 CHI,Chicago FSS
 CHJ,Chipinge
-CHK,Municipal
+CHK,Chickasha
 CHL,Challis
 CHM,Chimbote
 CHN,Jeonju
@@ -1608,7 +1608,7 @@ CSM,Sherman
 CSN,Carson City
 CSO,Cochstedt
 CSP,Cape Spencer C G Heliport
-CSQ,Municipal
+CSQ,Creston
 CSR,Casuarito
 CSS,Cassilandia
 CST,Castaway
@@ -2290,7 +2290,7 @@ ERU,Erume
 ERV,Kerrville
 ERZ,Erzurum 
 ESA,Esa'Ala
-ESB,Esenboga 
+ESB,Ankara
 ESC,Delta County 
 ESD,Orcas Island 
 ESE,Ensenada
@@ -2346,7 +2346,7 @@ EWI,Enarotali
 EWK,City-County
 EWN,Coastal Carolina Regional 
 EWO,Ewo
-EWR,Newark Liberty 
+EWR,New York
 EXI,SPB
 EXM,Exmouth Gulf
 EXT,Exeter 
@@ -3676,7 +3676,7 @@ JDR,Sao Joao Del Rei
 JDT,Downtown Heliport
 JDY,Heliport
 JDZ,Jingdezhen 
-JED,King Abdulaziz 
+JED,Jeddah
 JEE,Jeremie
 JEF,Memorial
 JEG,Aasiaat 
@@ -3685,7 +3685,7 @@ JEK,Jeki
 JEM,Heliport
 JEQ,Jequie
 JER,Jersey 
-JFK,John F. Kennedy 
+JFK,New York
 JFM,Heliport
 JFN,Ashtabula
 JFR,Paamiut 
@@ -3737,6 +3737,7 @@ JKG,Axamo
 JKH,Chios 
 JKL,Kalymnos Island National 
 JKR,Janakpur 
+JKT,Jakarta
 JKV,Cherokee County
 JLA,Quartz Creek
 JLB,Long Beach Heliport
@@ -4526,7 +4527,7 @@ LFQ,Linfen Qiaoli
 LFR,La Fria 
 LFT,Lafayette Regional 
 LFW,Lome 
-LGA,LaGuardia 
+LGA,New York
 LGB,Long Beach 
 LGC,Calloway
 LGD,La Grande
@@ -4988,7 +4989,7 @@ MDZ,El Plumerillo
 MEA,Macae
 MEB,Essendon 
 MEC,Manta 
-MED,Prince Mohammad Bin Abdulaziz 
+MED,Medine
 MEE,Mare 
 MEF,Melfi
 MEG,Malange
@@ -4996,7 +4997,7 @@ MEH,Mehamn
 MEI,Key Field
 MEJ,Meadville
 MEK,Meknes
-MEL,Tullamarine 
+MEL,Melbourne
 MEM,Memphis 
 MEN,Brenoux
 MEO,Dare County Regional
@@ -5174,7 +5175,7 @@ MLJ,Baldwin County
 MLK,Malte
 MLL,Marshall Don Hunter Sr. 
 MLM,Morelia 
-MLN,Manille 
+MLN,Melilla
 MLO,Milos 
 MLP,Malabang
 MLQ,Malalaua
@@ -5224,7 +5225,7 @@ MNH,Minneriya
 MNI,Bramble 
 MNJ,Mananjary
 MNK,Maiana
-MNL,Ninoy Aquino 
+MNL,Manille
 MNM,Menominee
 MNN,Municipal
 MNO,Manono
@@ -5579,8 +5580,8 @@ NBG,NAS/Alvin Callendar
 NBH,Nambucca Heads
 NBJ,Dr. Antonio Agostinho Neto 
 NBL,San Blas
-NBN,Annobi³n
-NBO,Jomo Kenyatta 
+NBN,Annobon
+NBO,Nairobi
 NBS,Changbaishan 
 NBU,NAS
 NBV,Cana Brava
@@ -7319,7 +7320,7 @@ SGJ,Sagarai
 SGK,Sangapi
 SGL,Sangley Point NAS
 SGM,San Ignacio
-SGN,Tan Son Nhat 
+SGN,Ho Chi Minh
 SGO,St George
 SGP,Shay Gap
 SGQ,Sanggata
@@ -7425,7 +7426,7 @@ SKL,Broadford
 SKM,Skeldon
 SKN,Stokmarknes Skagen 
 SKO,Sokoto
-SKP,Skopje Alexander the Great 
+SKP,Skopje
 SKQ,Sekakes
 SKR,Shakiso
 SKS,Vojens
@@ -7561,7 +7562,7 @@ SPT,Sipitang
 SPU,Split 
 SPV,Sepik Plains
 SPW,Spencer Municipal
-SPX,Houston Gulf 
+SPX,Gizeh
 SPY,San Pedro
 SPZ,Springdale Municipal
 SQA,Santa Ynez
@@ -7576,7 +7577,7 @@ SQI,Whiteside County
 SQJ,Sanming Shaxian 
 SQK,Sidi Barani
 SQL,San Carlos
-SQM,Si£o Miguel de Aragao
+SQM,Sao Miguel de Aragao
 SQN,Sanana
 SQO,Gunnarn
 SQQ,Siauliai 
@@ -8349,7 +8350,7 @@ UBA,Uberaba
 UBB,Mabuiag Island
 UBI,Buin
 UBJ,Yamaguchi Ube 
-UBN,New Ulaanbaatar 
+UBN,Ulaanbaatar
 UBP,Ubon Ratchathani 
 UBR,Ubrub
 UBS,Lowndes County
@@ -9295,7 +9296,7 @@ YHS,Sechelt
 YHT,Haines Junction
 YHU,St. Hubert
 YHY,Hay River
-YHZ,Halifax Stanfield 
+YHZ,Halifax 
 YIA,Yogyakarta 
 YIB,Atikokan
 YIC,Yichun Mingyueshan 
