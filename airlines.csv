@@ -2,18 +2,20 @@ AA,American Airlines
 AC,Air Canada
 AD,Azul Linhas Aereas
 AF,Air France
+AH,Air Algerie
 AM,Aeroméxico
 AK,AirAsia
 AR,Aerolineas Argentinas
 AS,Alaska Airlines
 AT,Royal Air Maroc
-AV,Aviatsa
+AV,Avianca
 AY,Finnair
 AZ,ITA Airways
 A3,Aegean Airlines
 BA,British Airways
-B6,Jetblue Airways
 BF,French Bee
+BR,Eva Air
+B6,Jetblue Airways
 BT,Air Baltic
 CA,Air China
 CI,China Airlines
@@ -21,28 +23,32 @@ CM,Copa Airlines
 CX,Cathay Pacific
 CZ,China Southern Airlines
 DL,Delta Air Lines
-DY,Norwigian Air Shuttle
+DM,Arajet
+DY,Norwegian Air Shuttle
+EI,Aer Lingus
 EK,Emirates
 EN,Air Dolomiti
 ET,Ethiopian Airlines
 EY,Etihad Airways
+FA,Safair
+FI,Icelandair
+FJ,Fiji Airways
 F9,Frontier Airlines
 FZ,FlyDubai
 G3,Gol Linhas Aéreas
 GA,Garuda Indonesia
 HA,Hawaiian Airlines
-HU,Hainan Airlines
 IB,Iberia
 JL,Japan Airlines
 KE,Korean Air
 KL,KLM Royal Dutch Airlines
+KQ,Kenya Airways
 LA,Latam Airlines
 LH,Lufthansa
 LO,Lot Polish Airlines
-LY,El Al Israel Airlines
+LX,Swiss Air Lines
 MH,Malaysia Airlines
 MS,EgyptAir
-MU,China Eastern Airlines
 NH,All Nippon Airways
 NZ,Air New Zealand
 OS,Austrian Airlines
@@ -51,19 +57,20 @@ PD,Porter Airlines
 PG,Bangkok Airways
 PR,Philippine Airlines
 QF,Qantas
-QG,Citilink
 QR,Qatar Airways
 RJ,Royal Jordanian
+RO,Tarom
 SA,South African Airways
-SK,Sas Scandinavian Airlines
+SK,SAS Scandinavian Airlines
 SN,Brussels Airlines
 SQ,Singapore Airlines
+SS,Corsair
 SU,AeroFlot
-SY,Sun Country Airlines
 S4,Azores Airlines
 TA,Taca Airlines
 TG,Thai Airways
 TK,Turkish Airlines
+TN,Air Tahiti Nui
 TP,Tap Air Portugal
 TS,Air Transat
 TU,Tunisair
@@ -73,13 +80,10 @@ UL,Srilankan Airlines
 UX,Air Europa
 VA,Virgin Australia
 VN,Vietnam Airlines
+VS,Virgin Atlantic
 VY,Vueling Airlines
-W6,Wizz Air
 WK,Edelweiss
-WN,Southwest Airlines
 WS,WestJet
-X3,TuIfly
-Y4,Volaris
-ZF,Azur Air
+WY,Oman Air
 4Y,EW Discover
 4Z,Airlink

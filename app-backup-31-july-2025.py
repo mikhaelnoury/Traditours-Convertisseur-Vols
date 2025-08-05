@@ -48,18 +48,6 @@ def find_departure_year(dep_month, dep_day, target_isoweekday):
             continue
     return current_year
 
-def format_day(day):
-    """Formate le jour avec '1er' pour le premier du mois"""
-    if day == 1:
-        return "1<sup>er</sup>"
-    return str(day)
-
-def format_airport_name(airport_code, airport_name):
-    """Retire 'Aéroport de ' pour les codes XDS et BQC"""
-    if airport_code in ['XDS', 'BQC']:
-        return airport_name.replace("Aéroport de ", "")
-    return airport_name
-
 def parse_flight_info(flight_info):
     try:
         cleaned_info = flight_info.replace('*', ' ')
@@ -125,18 +113,8 @@ def parse_flight_info(flight_info):
             except ValueError:
                 pass
 
-        formatted_departure = f"{days_fr[day_code]} {format_day(dep_day)} {months_fr[dep_month]}"
-        formatted_arrival = f"{days_fr[str(arr_date.isoweekday())]} {format_day(arr_date.day)} {months_fr[arr_date.month]}"
-
-        # Formatage spécial des noms d'aéroport
-        departure_airport_name = airports.get(departure_airport_code, departure_airport_code)
-        arrival_airport_name = airports.get(arrival_airport_code, arrival_airport_code)
-        
-        departure_airport_name = format_airport_name(departure_airport_code, departure_airport_name)
-        arrival_airport_name = format_airport_name(arrival_airport_code, arrival_airport_name)
-
-        # Calculer si le départ et l'arrivée sont le même jour
-        same_day = (dep_date.date() == arr_date.date())
+        formatted_departure = f"{departure_day} {dep_date.day} {months_fr[dep_date.month]}"
+        formatted_arrival = f"{days_fr[str(arr_date.isoweekday())]} {arr_date.day} {months_fr[arr_date.month]}"
 
         return {
             'airline_code': airline_code,
@@ -146,11 +124,10 @@ def parse_flight_info(flight_info):
             'formatted_arrival_date': formatted_arrival,
             'departure_time': f"{departure_time[:2]}h{departure_time[2:]}",
             'arrival_time': f"{arrival_time[:2]}h{arrival_time[2:]}",
-            'departure_airport': departure_airport_name,
+            'departure_airport': airports.get(departure_airport_code, departure_airport_code),
             'departure_airport_code': departure_airport_code,
-            'arrival_airport': arrival_airport_name,
-            'arrival_airport_code': arrival_airport_code,
-            'same_day': same_day  # Nouveau champ
+            'arrival_airport': airports.get(arrival_airport_code, arrival_airport_code),
+            'arrival_airport_code': arrival_airport_code
         }
     except Exception as e:
         raise ValueError(f"Erreur dans la ligne: '{flight_info}'\nDétail: {str(e)}")
@@ -224,31 +201,17 @@ def parse_flight_info_v2(flight_info):
 
         arr_date = candidate_arr_date
 
-        # Formatage spécial des noms d'aéroport
-        departure_airport_code = airports_pair[:3]
-        arrival_airport_code = airports_pair[3:]
-        
-        departure_airport_name = airports.get(departure_airport_code, departure_airport_code)
-        arrival_airport_name = airports.get(arrival_airport_code, arrival_airport_code)
-        
-        departure_airport_name = format_airport_name(departure_airport_code, departure_airport_name)
-        arrival_airport_name = format_airport_name(arrival_airport_code, arrival_airport_name)
-
-        # Calculer si le départ et l'arrivée sont le même jour
-        same_day = (dep_date.date() == arr_date.date())
-
         return {
             'airline_code': airline_code,
             'flight_number': flight_number,
-            'formatted_departure_date': f"{days_fr[day_code]} {format_day(dep_day)} {months_fr[dep_month]}",
-            'formatted_arrival_date': f"{days_fr[str(arr_date.isoweekday())]} {format_day(arr_date.day)} {months_fr[arr_date.month]}",
+            'formatted_departure_date': f"{days_fr[day_code]} {dep_day} {months_fr[dep_month]}",
+            'formatted_arrival_date': f"{days_fr[str(arr_date.isoweekday())]} {arr_date.day} {months_fr[arr_date.month]}",
             'departure_time': f"{departure_time[:2]}h{departure_time[2:]}",
             'arrival_time': f"{arrival_time[:2]}h{arrival_time[2:]}",
-            'departure_airport': departure_airport_name,
-            'departure_airport_code': departure_airport_code,
-            'arrival_airport': arrival_airport_name,
-            'arrival_airport_code': arrival_airport_code,
-            'same_day': same_day  # Nouveau champ
+            'departure_airport': airports.get(airports_pair[:3], airports_pair[:3]),
+            'departure_airport_code': airports_pair[:3],
+            'arrival_airport': airports.get(airports_pair[3:], airports_pair[3:]),
+            'arrival_airport_code': airports_pair[3:]
         }
     except Exception as e:
         raise ValueError(f"Erreur dans la ligne: '{flight_info}'\nDétail: {str(e)}")

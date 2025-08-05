@@ -116,12 +116,6 @@
             display: block;
             margin: 20px auto;
         }
-
-        sup {
-            vertical-align: super;
-            font-size: smaller;
-            line-height: 1;
-        }
     </style>
 </head>
 <body>
@@ -151,7 +145,7 @@
     <div class="container">
         <img src="https://d1rhhj62y2wocd.cloudfront.net/assets/images/logos/logo-traditours.svg" alt="Traditours logo" class="logo">
         <h1 class='no-print'>Convertisseur d'itinéraire de vol</h1>
-        <p class='no-print' style="text-align: center;">Dernière mise à jour de l'outil le 5 août 2025</p>
+        <p class='no-print' style="text-align: center;">Dernière mise à jour de l'outil le 28 mai 2025</p>
         
         <h2 class="no-print">Étape 1 - Informations de vols</h2>
 
@@ -232,33 +226,23 @@
                         {% set date = date_group[0] %}
                         {% set flights = date_group[1] %}
                         <div class="flight-details" style="margin: 10px 0;">
-                            <p><strong><u>Date de départ</u> : {{ date | safe }} / <u>Lieu de départ</u> : 
-                                {% if flights[0].departure_airport_code in ['XDS', 'BQC'] %}
-                                    {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})
-                                {% else %}
-                                    Aéroport de {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})
-                                {% endif %}
-                            </strong></p>
+                            <p><strong><u>Date de départ</u> : {{ date }} / <u>Lieu de départ</u> : Aéroport de {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})</strong></p>
                             {% for flight in flights %}
                             <div style="margin-top: 5px;">
-                            <p>
-                                {% if loop.index > 1 %}
-                                    {% set prev_flight = flights[loop.index-2] %}
-                                    {% if flight.same_day and flight.formatted_departure_date == prev_flight.formatted_arrival_date %}
-                                        Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
-                                    {% else %}
+                                <p>
+                                    {% if loop.index > 1 %}
+                                        {% set prev_flight = flights[loop.index-2] %}
                                         {% if flight.formatted_departure_date != prev_flight.formatted_departure_date %}
-                                            Départ le <u>{{ flight.formatted_departure_date | safe }}</u> de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
+                                            Départ le <u>{{ flight.formatted_departure_date }}</u> de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
                                         {% else %}
                                             Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
                                         {% endif %}
+                                    {% else %}
+                                        Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
                                     {% endif %}
-                                {% else %}
-                                    Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
-                                {% endif %}
-                                Arrivée à {{ flight.arrival_airport }} ({{ flight.arrival_airport_code }}) à {{ flight.arrival_time }} 
-                                (vol {{ flight.airline_code }} {{ flight.flight_number }}) le <u>{{ flight.formatted_arrival_date | safe }}</u>
-                            </p>
+                                    Arrivée à {{ flight.arrival_airport }} ({{ flight.arrival_airport_code }}) à {{ flight.arrival_time }} 
+                                    (vol {{ flight.airline_code }} {{ flight.flight_number }}) le <u>{{ flight.formatted_arrival_date }}</u>
+                                </p>
                             </div>
                             {% endfor %}
                         </div>
@@ -275,32 +259,22 @@
                         {% set date = date_group[0] %}
                         {% set flights = date_group[1] %}
                         <div class="flight-details" style="margin: 10px 0;">
-                            <p><strong><u>Date de départ</u> : {{ date | safe }} / <u>Lieu de départ</u> : 
-                                {% if flights[0].departure_airport_code in ['XDS', 'BQC'] %}
-                                    {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})
-                                {% else %}
-                                    Aéroport de {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})
-                                {% endif %}
-                            </strong></p>
+                            <p><strong><u>Date de départ</u> : {{ date }} / <u>Lieu de départ</u> : Aéroport de {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})</strong></p>
                             {% for flight in flights %}
                             <div style="margin-top: 5px;">
                                 <p>
                                     {% if loop.index > 1 %}
                                         {% set prev_flight = flights[loop.index-2] %}
-                                        {% if flight.same_day and flight.formatted_departure_date == prev_flight.formatted_arrival_date %}
-                                            Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
+                                        {% if flight.formatted_departure_date != prev_flight.formatted_departure_date %}
+                                            Départ le <u>{{ flight.formatted_departure_date }}</u> de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
                                         {% else %}
-                                            {% if flight.formatted_departure_date != prev_flight.formatted_departure_date %}
-                                                Départ le <u>{{ flight.formatted_departure_date | safe }}</u> de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
-                                            {% else %}
-                                                Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
-                                            {% endif %}
+                                            Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
                                         {% endif %}
                                     {% else %}
                                         Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
                                     {% endif %}
                                     Arrivée à {{ flight.arrival_airport }} ({{ flight.arrival_airport_code }}) à {{ flight.arrival_time }} 
-                                    (vol {{ flight.airline_code }} {{ flight.flight_number }}) le <u>{{ flight.formatted_arrival_date | safe }}</u>
+                                    (vol {{ flight.airline_code }} {{ flight.flight_number }}) le <u>{{ flight.formatted_arrival_date }}</u>
                                 </p>
                             </div>
                             {% endfor %}
@@ -398,32 +372,22 @@
                         {% set date = date_group[0] %}
                         {% set flights = date_group[1] %}
                         <div class="flight-details" style="margin: 10px 0;">
-                            <p><strong><u>Date de départ</u> : {{ date | safe }} / <u>Lieu de départ</u> : 
-                                {% if flights[0].departure_airport_code in ['XDS', 'BQC'] %}
-                                    {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})
-                                {% else %}
-                                    Aéroport de {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})
-                                {% endif %}
-                            </strong></p>
+                            <p><strong><u>Date de départ</u> : {{ date }} / <u>Lieu de départ</u> : Aéroport de {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})</strong></p>
                             {% for flight in flights %}
                             <div style="margin-top: 5px;">
                                 <p>
                                     {% if loop.index > 1 %}
                                         {% set prev_flight = flights[loop.index-2] %}
-                                        {% if flight.same_day and flight.formatted_departure_date == prev_flight.formatted_arrival_date %}
-                                            Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
+                                        {% if flight.formatted_departure_date != prev_flight.formatted_departure_date %}
+                                            Départ le <u>{{ flight.formatted_departure_date }}</u> de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
                                         {% else %}
-                                            {% if flight.formatted_departure_date != prev_flight.formatted_departure_date %}
-                                                Départ le <u>{{ flight.formatted_departure_date | safe }}</u> de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
-                                            {% else %}
-                                                Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
-                                            {% endif %}
+                                            Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
                                         {% endif %}
                                     {% else %}
                                         Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
                                     {% endif %}
                                     Arrivée à {{ flight.arrival_airport }} ({{ flight.arrival_airport_code }}) à {{ flight.arrival_time }} 
-                                    (vol {{ flight.airline_code }} {{ flight.flight_number }}) le <u>{{ flight.formatted_arrival_date | safe }}</u>
+                                    (vol {{ flight.airline_code }} {{ flight.flight_number }}) le <u>{{ flight.formatted_arrival_date }}</u>
                                 </p>
                             </div>
                             {% endfor %}
@@ -441,32 +405,22 @@
                         {% set date = date_group[0] %}
                         {% set flights = date_group[1] %}
                         <div class="flight-details" style="margin: 10px 0;">
-                            <p><strong><u>Date de départ</u> : {{ date | safe }} / <u>Lieu de départ</u> : 
-                                {% if flights[0].departure_airport_code in ['XDS', 'BQC'] %}
-                                    {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})
-                                {% else %}
-                                    Aéroport de {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})
-                                {% endif %}
-                            </strong></p>
+                            <p><strong><u>Date de départ</u> : {{ date }} / <u>Lieu de départ</u> : Aéroport de {{ flights[0].departure_airport }} ({{ flights[0].departure_airport_code }})</strong></p>
                             {% for flight in flights %}
                             <div style="margin-top: 5px;">
                                 <p>
                                     {% if loop.index > 1 %}
                                         {% set prev_flight = flights[loop.index-2] %}
-                                        {% if flight.same_day and flight.formatted_departure_date == prev_flight.formatted_arrival_date %}
-                                            Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
+                                        {% if flight.formatted_departure_date != prev_flight.formatted_departure_date %}
+                                            Départ le <u>{{ flight.formatted_departure_date }}</u> de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
                                         {% else %}
-                                            {% if flight.formatted_departure_date != prev_flight.formatted_departure_date %}
-                                                Départ le <u>{{ flight.formatted_departure_date | safe }}</u> de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
-                                            {% else %}
-                                                Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
-                                            {% endif %}
+                                            Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
                                         {% endif %}
                                     {% else %}
                                         Départ de {{ flight.departure_airport }} ({{ flight.departure_airport_code }}) à {{ flight.departure_time }} /
                                     {% endif %}
                                     Arrivée à {{ flight.arrival_airport }} ({{ flight.arrival_airport_code }}) à {{ flight.arrival_time }} 
-                                    (vol {{ flight.airline_code }} {{ flight.flight_number }}) le <u>{{ flight.formatted_arrival_date | safe }}</u>
+                                    (vol {{ flight.airline_code }} {{ flight.flight_number }}) le <u>{{ flight.formatted_arrival_date }}</u>
                                 </p>
                             </div>
                             {% endfor %}
