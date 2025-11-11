@@ -6,13 +6,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <title>Convertisseur d'itinéraire de vol</title>
+    <title id="pdfTitle">Horaire de vol groupe</title>
     <link rel="icon" type="image/x-icon" href="https://www.traditours.com/favicon/favicon-32x32.png">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('groupeInput');
+        const title = document.getElementById('pdfTitle');
+        
+        input.addEventListener('input', function() {
+            const value = this.value.trim();
+            title.textContent = `Horaire de vol groupe ${value || '[ici]'}`;
+        });
+    });
+    </script>
+
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Fonction pour formater la date en DD-MM-YYYY
@@ -151,7 +163,7 @@
     <div class="container">
         <img src="https://d1rhhj62y2wocd.cloudfront.net/assets/images/logos/logo-traditours.svg" alt="Traditours logo" class="logo">
         <h1 class='no-print'>Convertisseur d'itinéraire de vol</h1>
-        <p class='no-print' style="text-align: center;">Dernière mise à jour de l'outil le 5 août 2025</p>
+        <p class='no-print' style="text-align: center;">Dernière mise à jour de l'outil le 11 novembre 2025</p>
         
         <h2 class="no-print">Étape 1 - Informations de vols</h2>
 
@@ -193,8 +205,33 @@
 
                     <div id="notes-staff" style="text-align: justify; display: flex; flex-flow: column;">
                         <p class="no-print" style="display: flex;font-weight: bold;">Notes sur l'assignation des sièges</p>
-                    <textarea name="notes-siege" placeholder="Indiquer les notes sur l'assignation des sièges" style="width: auto;height: 50px;text-align: justify;">{{ notes_siege }}</textarea>
-                    </div>
+                        <p class="no-print" style="display: flex;">Utilisation des textes par défaut
+                            <input class="no-print" type="checkbox" id="defaultTextCheckbox" name="scales">
+                        </p>
+                    <textarea name="notes-siege" id="notesSiege" placeholder="Indiquer les notes sur l'assignation des sièges" style="width: auto;height: 50px;text-align: justify;">{{ notes_siege }}</textarea>
+                    
+                
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const checkbox = document.getElementById('defaultTextCheckbox');
+                    const textarea = document.getElementById('notesSiege');
+                    
+                    checkbox.addEventListener('change', function() {
+                        if (this.checked) {
+                            // Si la checkbox est cochée, on insère le texte par défaut
+                            textarea.value = 'Veuillez prendre note que les réservations de groupe auprès des compagnies aériennes ne permettent généralement pas d’effectuer une sélection de sièges. De plus, les sièges pour les voyages de groupe sont souvent assignés dans un bloc prédéterminé que les agences ne peuvent pas modifier. Si vous souhaitez indiquer une préférence de siège (couloir ou hublot) à votre réservation, veuillez en aviser votre conseiller au moment de l’inscription. Voyages Traditours transmettra votre préférence à la compagnie aérienne, sans toutefois pouvoir garantir qu’elle sera honorée.';
+                        } else {
+                            // Si la checkbox est décochée, on vide le textarea
+                            textarea.value = '';
+                        }
+                    });
+                });
+                </script>
+                
+                </div>
+
+
+
 
                     <div><input type="submit" name="action" value="Convertir" style="width: 100%;"></div>
                 </form>
@@ -209,7 +246,7 @@
             <!-- Section Titre -->
             <div>
                 <div style="display: flex;"><h1 style="color: #454036;font-weight: 500;text-align: left;width: 48%;float: left;margin-top: 0px;margin-bottom: 10px;">ITINÉRAIRE AÉRIEN DU GROUPE</h1>   
-                <div style="display: flex;gap: 10px;align-items: center;width: 10%;!i;!;justify-content: right;"><input type="text" style="background: none;border-bottom: 1px solid lightgrey;border-top: none;border-left: none;border-right: none;margin-left: 10px;font-size: 18px;color: #454036;margin-top: -9px;width: 89px;"></div>
+                <div style="display: flex;gap: 10px;align-items: center;width: 10%;!i;!;justify-content: right;"><input type="text" id="groupeInput" style="background: none;border-bottom: 1px solid lightgrey;border-top: none;border-left: none;border-right: none;margin-left: 10px;font-size: 18px;color: #454036;margin-top: -9px;width: 95px; text-align: center;" placeholder="# Groupe"></div>
             <div style="display: flex;gap: 10px;align-items: center;width: 42%;!i;!;justify-content: right;">
                 <p style="color: #454036; font-weight: 300;">Dernière mise à jour le :</p>
                 <input type="text" class="today-date" style="background: none;border-bottom: 1px solid lightgrey;border-top: none;border-left: none;border-right: none;width: 80px;"></div>

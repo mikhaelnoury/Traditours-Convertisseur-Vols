@@ -157,42 +157,71 @@ def parse_flight_info(flight_info):
 
 def parse_flight_info_v2(flight_info):
     try:
-        cleaned_info = flight_info.replace('*', ' ')
+        cleaned_info = flight_info.replace('*', ' ').replace('# Erreur:', '').strip()
         parts = [p for p in cleaned_info.split() if p]
         
-        if parts and parts[0].isdigit():
+        if not parts:
+            raise ValueError("Ligne vide")
+        
+        # Supprimer le numéro de ligne si présent
+        if parts[0].isdigit():
             parts = parts[1:]
+            if not parts:
+                raise ValueError("Rien après le numéro de ligne")
 
-        # Regex mise à jour pour accepter les codes alphanumériques
-        if parts:
-            match = re.match(r"^([A-Za-z0-9]{2})(\d+)$", parts[0])
+        # Gestion du code airline et numéro de vol
+        airline_code = parts[0]
+        flight_number = parts[1]
+        
+        # Vérifier si le code airline et le numéro sont fusionnés
+        if len(parts) > 1 and re.match(r"^[A-Za-z0-9]{2}\d+$", airline_code):
+            match = re.match(r"^([A-Za-z0-9]{2})(\d+)$", airline_code)
             if match:
                 airline_code = match.group(1)
                 flight_number = match.group(2)
+                # Reconstruire les parties
                 parts = [airline_code, flight_number] + parts[1:]
 
-        try:
-            airline_code = parts[0]
-            flight_number = parts[1]
-            # Ajustement des indices
-            date_str = parts[2]
-            day_code = parts[3]
-            airports_pair = parts[4]
-            departure_time = parts[6]
-            arrival_time = parts[7]
-            arrival_date_str = parts[8] if len(parts) > 8 else date_str
-        except IndexError as e:
-            raise ValueError(f"Erreur de structure dans la ligne : {flight_info}\nDétail : {e}")
+        # Trouver les indices de toutes les dates
+        date_indices = []
+        for i, part in enumerate(parts):
+            if re.match(r"\d{2}[A-Z]{3}", part):
+                date_indices.append(i)
+        
+        if not date_indices:
+            raise ValueError("Aucune date trouvée dans la ligne")
+        
+        # La première date est la date de départ
+        date_index = date_indices[0]
+        
+        # Extraction des composants
+        date_str = parts[date_index]
+        day_code = parts[date_index + 1]
+        airports_pair = parts[date_index + 2]
+        
+        # Si nous avons une deuxième date, c'est la date d'arrivée
+        if len(date_indices) > 1:
+            # La date d'arrivée est après les heures
+            departure_time = parts[date_index + 3]
+            arrival_time = parts[date_index + 4]
+            arrival_date_str = parts[date_indices[1]]
+        else:
+            # Sinon, nous utilisons la structure par défaut
+            departure_time = parts[date_index + 3]
+            arrival_time = parts[date_index + 4]
+            arrival_date_str = parts[date_index + 5] if len(parts) > date_index + 5 else date_str
 
+        # Validation des aéroports
         if len(airports_pair) != 6 or not airports_pair.isalpha():
-            raise ValueError(f"Format aéroports invalide : {airports_pair} dans la ligne : {flight_info}")
+            raise ValueError(f"Format aéroports invalide: {airports_pair}")
 
+        # Traitement des dates
         dep_day = int(date_str[:2])
         dep_month_str = date_str[2:5].upper()
         dep_month = months.get(dep_month_str)
         
         if not dep_month:
-            raise ValueError(f"Mois invalide : {dep_month_str}")
+            raise ValueError(f"Mois invalide: {dep_month_str}")
 
         target_isoweekday = int(day_code)
         dep_year = find_departure_year(dep_month, dep_day, target_isoweekday)
@@ -200,31 +229,36 @@ def parse_flight_info_v2(flight_info):
         try:
             dep_date = datetime.datetime(dep_year, dep_month, dep_day)
         except ValueError as e:
-            raise ValueError(f"Date invalide: {e}")
+            raise ValueError(f"Date de départ invalide: {e}")
 
         # Traitement de la date d'arrivée
         arrival_day = int(arrival_date_str[:2])
         arrival_month_str = arrival_date_str[2:5].upper()
         arrival_month = months.get(arrival_month_str)
+        
         if not arrival_month:
-            raise ValueError(f"Mois d'arrivée invalide : {arrival_month_str}")
+            raise ValueError(f"Mois d'arrivée invalide: {arrival_month_str}")
 
         arrival_year = dep_year
         try:
-            candidate_arr_date = datetime.datetime(arrival_year, arrival_month, arrival_day)
-        except ValueError as e:
-            raise ValueError(f"Date d'arrivée invalide : {e}")
-
-        if candidate_arr_date < dep_date:
+            arr_date = datetime.datetime(arrival_year, arrival_month, arrival_day)
+        except ValueError:
+            # Ajustement si la date d'arrivée est invalide
             arrival_year += 1
             try:
-                candidate_arr_date = datetime.datetime(arrival_year, arrival_month, arrival_day)
+                arr_date = datetime.datetime(arrival_year, arrival_month, arrival_day)
             except ValueError as e:
-                raise ValueError(f"Date d'arrivée invalide après ajustement : {e}")
+                raise ValueError(f"Date d'arrivée invalide: {e}")
 
-        arr_date = candidate_arr_date
+        # Vérifier si la date d'arrivée est avant la date de départ
+        if arr_date < dep_date:
+            arrival_year += 1
+            try:
+                arr_date = datetime.datetime(arrival_year, arrival_month, arrival_day)
+            except ValueError as e:
+                raise ValueError(f"Date d'arrivée invalide après ajustement: {e}")
 
-        # Formatage spécial des noms d'aéroport
+        # Formatage des noms d'aéroport
         departure_airport_code = airports_pair[:3]
         arrival_airport_code = airports_pair[3:]
         
@@ -239,6 +273,7 @@ def parse_flight_info_v2(flight_info):
 
         return {
             'airline_code': airline_code,
+            'airline': airlines.get(airline_code, airline_code),
             'flight_number': flight_number,
             'formatted_departure_date': f"{days_fr[day_code]} {format_day(dep_day)} {months_fr[dep_month]}",
             'formatted_arrival_date': f"{days_fr[str(arr_date.isoweekday())]} {format_day(arr_date.day)} {months_fr[arr_date.month]}",
@@ -248,7 +283,7 @@ def parse_flight_info_v2(flight_info):
             'departure_airport_code': departure_airport_code,
             'arrival_airport': arrival_airport_name,
             'arrival_airport_code': arrival_airport_code,
-            'same_day': same_day  # Nouveau champ
+            'same_day': same_day
         }
     except Exception as e:
         raise ValueError(f"Erreur dans la ligne: '{flight_info}'\nDétail: {str(e)}")
@@ -312,57 +347,155 @@ def process_flight_data(flight_data, parser):
     }
 
 def filter_amadeus_data(flight_data):
+    # Nettoyer d'abord le texte pour ne garder que les lignes de vol
+    cleaned_data = clean_flight_text(flight_data)
+    
     filtered = []
-    for line in flight_data.split('\n'):
-        original_line = line.rstrip().replace('*', ' ')
+    for line in cleaned_data.split('\n'):
+        original_line = line.rstrip()
         if not original_line.strip():
             filtered.append('')
             continue
         
-        parts = original_line.split()
         try:
-            # Nouvelle approche : trouver l'index de la date (format JJMMM)
-            date_index = None
-            for i, part in enumerate(parts):
-                if re.match(r"\d{2}[A-Z]{3}", part):
-                    date_index = i
-                    break
-            if date_index is None:
+            # Nettoyer la ligne
+            cleaned_line = original_line.replace('*', ' ')
+            parts = cleaned_line.split()
+            
+            # Ignorer le numéro de ligne
+            if parts and parts[0].isdigit():
+                parts = parts[1:]
+            
+            if not parts:
+                continue
+            
+            # Trouver toutes les dates
+            dates = [part for part in parts if re.match(r"\d{2}[A-Z]{3}", part)]
+            if len(dates) < 1:
                 raise ValueError("Aucune date trouvée")
             
-            # Décalage pour ignorer le numéro de ligne s'il existe
-            start_idx = 1 if parts[0].isdigit() else 0
+            # La première date est le départ
+            dep_date_str = dates[0]
             
-            # Extraire le code airline et numéro de vol
-            airline_flight = ''.join(parts[start_idx:date_index-1])
-            match = re.match(r"^([A-Za-z0-9]{2})(\d+)$", airline_flight)
-            if not match:
-                # Tentative alternative pour les formats différents
-                if date_index - start_idx >= 2:
-                    airline_code = parts[start_idx]
-                    flight_number = parts[start_idx+1]
-                else:
-                    raise ValueError("Format de code de vol invalide")
+            # Trouver l'index de la date de départ
+            dep_date_index = None
+            for i, part in enumerate(parts):
+                if part == dep_date_str:
+                    dep_date_index = i
+                    break
+            
+            if dep_date_index is None:
+                raise ValueError("Date de départ non trouvée")
+            
+            # Composants fixes après la date de départ
+            day_code = parts[dep_date_index + 1]
+            airports_pair = parts[dep_date_index + 2]
+            
+            # Code airline et numéro de vol
+            airline_code = parts[0]
+            flight_number = parts[1]
+            
+            # S'assurer que le code airline et le numéro de vol sont séparés
+            if re.match(r"^[A-Za-z0-9]{2}\d+$", airline_code):
+                match = re.match(r"^([A-Za-z0-9]{2})(\d+)$", airline_code)
+                if match:
+                    airline_code = match.group(1)
+                    flight_number = match.group(2)
+            
+            # Trouver les heures (recherche des motifs 4 chiffres)
+            times = []
+            time_offset = 0
+            for part in parts:
+                if re.match(r"^\d{4}(\+\d+)?$", part):
+                    time_match = re.match(r"^(\d{4})(?:\+(\d+))?$", part)
+                    if time_match:
+                        times.append(time_match.group(1))
+                        if time_match.group(2):
+                            time_offset = int(time_match.group(2))
+            
+            if len(times) < 2:
+                raise ValueError("Heures insuffisantes")
+            
+            departure_time, arrival_time = times[0], times[1]
+            
+            # Déterminer la date d'arrivée
+            if len(dates) > 1:
+                # Utiliser la deuxième date comme date d'arrivée
+                arr_date_str = dates[1]
             else:
-                airline_code = match.group(1)
-                flight_number = match.group(2)
+                # Calculer avec l'offset
+                dep_day = int(dep_date_str[:2])
+                dep_month_str = dep_date_str[2:5].upper()
+                dep_month = months.get(dep_month_str)
+                
+                if not dep_month:
+                    raise ValueError(f"Mois invalide: {dep_month_str}")
+                
+                target_isoweekday = int(day_code)
+                dep_year = find_departure_year(dep_month, dep_day, target_isoweekday)
+                
+                dep_date = datetime.datetime(dep_year, dep_month, dep_day)
+                arr_date = dep_date + datetime.timedelta(days=time_offset)
+                arr_date_str = f"{arr_date.day:02d}{dep_date_str[2:5].upper()}"
             
-            # Extraire les composants clés
-            date_str = parts[date_index]
-            day_code = parts[date_index+1]
-            airports_pair = parts[date_index+2]
-            departure_time = parts[date_index+4]
-            arrival_time = parts[date_index+5]
-            arrival_date = parts[date_index+6] if len(parts) > date_index+6 else date_str
-            
-            # Construire la nouvelle ligne formatée
-            new_line = f"{airline_code}{flight_number} {date_str} {day_code} {airports_pair} {departure_time} {arrival_time} {arrival_date}"
+            # Construire la ligne filtrée
+            new_line = f"{airline_code} {flight_number} {dep_date_str} {day_code} {airports_pair} {departure_time} {arrival_time} {arr_date_str}"
             filtered.append(new_line)
             
-        except (ValueError, IndexError) as e:
+        except Exception as e:
             filtered.append(original_line + f" # Erreur: {str(e)}")
     
     return '\n'.join(filtered)
+
+def clean_flight_text(flight_data):
+    """
+    Nettoie le texte d'itinéraire en ne gardant que les lignes de vol principales.
+    """
+    cleaned_lines = []
+    lines = flight_data.split('\n')
+    i = 0
+    
+    while i < len(lines):
+        line = lines[i].strip()
+        
+        # Ignorer les lignes vides
+        if not line:
+            cleaned_lines.append('')
+            i += 1
+            continue
+        
+        # Vérifier si c'est une ligne de vol principale
+        is_flight_line = False
+        
+        # Critère 1: Commence par un numéro suivi d'un code airline
+        if re.match(r'^\d+\s+[A-Z0-9]{2}', line):
+            is_flight_line = True
+        
+        # Critère 2: Contient une date (JJMMM) et une paire d'aéroports (6 lettres)
+        has_date = re.search(r'\d{2}[A-Z]{3}', line)
+        has_airport_pair = re.search(r'[A-Z]{6}', line)
+        
+        if has_date and has_airport_pair:
+            # Vérifier que c'est bien une ligne de vol et non une remarque
+            parts = line.split()
+            if len(parts) >= 6:  # Doit avoir au moins 6 éléments
+                # Vérifier la structure typique: [num] code_airline num_vol ... date jour aéroports
+                if (re.match(r'^\d+$', parts[0]) and 
+                    re.match(r'^[A-Z0-9]{2}$', parts[1]) and
+                    re.match(r'^\d+$', parts[2]) and
+                    re.search(r'\d{2}[A-Z]{3}', parts[3])):
+                    is_flight_line = True
+        
+        if is_flight_line:
+            cleaned_lines.append(line)
+            # Ignorer les lignes suivantes qui sont des remarques (elles ne commencent pas par un numéro)
+            i += 1
+            while i < len(lines) and lines[i].strip() and not re.match(r'^\d+\s+', lines[i].strip()):
+                i += 1
+        else:
+            i += 1
+    
+    return '\n'.join(cleaned_lines)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -382,7 +515,9 @@ def index():
         
         if action == 'Filtrer':
             try:
-                flight_data1 = filter_amadeus_data(flight_data2)
+                # Nettoyer flight_data2 avant le filtrage
+                cleaned_flight_data2 = clean_flight_text(flight_data2)
+                flight_data1 = filter_amadeus_data(cleaned_flight_data2)
             except Exception as e:
                 error_message = f"Erreur lors du filtrage : {str(e)}"
             
@@ -394,7 +529,9 @@ def index():
                     error_message = f"Erreur lors de la conversion (Format filtré) : {str(e)}"
             elif 'flight_data2' in request.form:
                 try:
-                    result2 = process_flight_data(flight_data2, parse_flight_info_v2)
+                    # Nettoyer flight_data2 avant la conversion
+                    cleaned_flight_data2 = clean_flight_text(flight_data2)
+                    result2 = process_flight_data(cleaned_flight_data2, parse_flight_info_v2)
                 except Exception as e:
                     error_message = f"Erreur lors de la conversion (Format original) : {str(e)}"
 
